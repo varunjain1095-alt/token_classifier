@@ -1,0 +1,77 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Test coverage
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+uploads/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+
+# Environment
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Architecture files (keep these for context)
+# classification-workbench-architecture.md
+# windsurf-token-guardrails.md
+# windsurf-always-on-token-rule.md
+# windsurf-implementation-session-rule.md
+
+# Source code (keep these)
+# src/
+# frontend/src/
+# migrations/
+# requirements.txt
+# frontend/package.json
+# frontend/tsconfig.json
+# frontend/vite.config.ts
+# alembic.ini

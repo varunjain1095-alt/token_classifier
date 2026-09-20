@@ -1,0 +1,39 @@
+# Backend Framework
+fastapi==0.115.0
+uvicorn[standard]==0.30.0
+
+# Database
+sqlalchemy==2.0.35
+alembic==1.13.3
+psycopg2-binary==2.9.12
+
+# Redis & Queue
+redis==8.1.0
+celery==5.4.0
+
+# Authentication & Security
+python-multipart==0.0.9
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# Configuration & Logging
+python-dotenv==1.0.1
+structlog==24.4.0
+
+# Data Processing
+pandas==2.2.3
+openpyxl==3.1.5
+xlrd==2.0.1
+
+# Token Counting
+tiktoken==0.8.0
+
+# Machine Learning (for TF-IDF)
+scikit-learn==1.5.2
+
+# OpenAI
+openai==3.16.0
+
+# Utilities
+pydantic==2.9.2
+pydantic-settings==2.5.2

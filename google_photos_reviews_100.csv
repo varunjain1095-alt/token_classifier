@@ -1,0 +1,313 @@
+"record_id","source_comment_id","thread_title","username","review_text","source_url"
+"GPH-001","091","Advanced Google Photos Search Syntax","kintendo","So my ultimate goal is to find a way to see all photos not in a specific album.
+
+I seem to be able to do exclude years in my search queries. If I search for ""dog -2019"" it will yield some dog photos excluding ones taken in 2019.
+
+But if I add a keyword like ""vacation"" to a photo or put a photo in an album called ""vacation""
+
+Searching for ""beach -vacation"" will still yield all my beach photos in the vacation album as well as the ones with the word vacation in the description.
+
+Is there a resource that lists the advanced search syntax that we are all aware of? All I can find are SEO optimized fake articles with useless Google Photos information.","https://www.reddit.com/r/googlephotos/comments/rxthdo/advanced_google_photos_search_syntax/"
+"GPH-002","759","Ask Photos still not showing up on Pixel 10 Pro XL (main account only)","Illyria9","Got my Pixel 10 Pro XL at launch, but Ask Photos still doesn’t show up on my main Google account.
+
+* I’ve got Gemini Pro.
+
+* Meets all the requirements.
+
+* Tried all the basics (updates, cache/data, reinstall, restarts).
+
+* Works instantly on other accounts, even a brand new one.
+
+The only thing I can think of: my Google account was created in another country, then I moved country and changed it, and last year I moved to the US and changed it again to United States (Play Store shows US, US credit card, etc.). Most US-only stuff works now (even Doppl, which used to block me saying it was only available in the US), but maybe it still doesn’t fully recognize my account as US sometimes?
+
+Anyone else run into this? I really think I tried anything I could. Support wasn't really useful either.
+
+Archived post. New comments cannot be posted and votes cannot be cast.","https://www.reddit.com/r/GooglePixel/comments/1nictqc/ask_photos_still_not_showing_up_on_pixel_10_pro/"
+"GPH-003","120","Google Photos date search completely changed?","doyoujive26","Has anyone else noticed that searching by date in Google Photos has suddenly stopped working properly?
+
+I used to be able to type something like “20 October” and it would show all the “Best match” options first, then relevant results grouped by date — really tidy and easy to browse.
+
+Now, when I search a date, it just gives me a giant block of random photos and I have to open them one by one to check when they’re actually from. It doesn’t seem to sort them by date at all anymore.
+
+I’m using the Android version of the app - has this feature been removed, or is it just bugged for some people? I've got over 47,000 photos and planned on finally trying to sort them out once a day, but this has ruined all my plans if it's throwing up photos from all sorts of irrelevant dates.","https://www.reddit.com/r/googlephotos/comments/1ob8og4/google_photos_date_search_completely_changed/"
+"GPH-004","772","Google Photos face recognition has suddenly stopped working","Professional-Leg5437","Hi,
+
+Google Photos has been recognizing and organizing faces in my pictures for years, but I’ve noticed it hasn't recognized any new photos of me since late December 2025. Has this feature been discontinued, or is there a specific issue with my account? What can I do to fix this?
+
+Update (8 months later): I’ve switched it off and on again three times, leaving a good time in between so that the facial recognition could correctly identify my photos, but unfortunately it works but still gives a rubbish result compared to what I had before, with loads of inconsistencies. I’ve turned it off again and I think I’m going to stop using this feature altogether.","https://www.reddit.com/r/googlephotos/comments/1rcqt49/google_photos_face_recognition_has_suddenly/"
+"GPH-005","651","Google photos face recognition is horrendous","macrian","Bug 🐞
+
+No seriously, it merged all mine and my fiance's photos and removed her face from the categories completely. It added photos to mine that it's just a random ball pit and her nephew (not a single face in there), heck in one photo it's only a tree, nothing more. And not only that, I go through tbem, remove them as wrong person, and about one month later they are back in.
+
+I don't expect something, just venting","https://www.reddit.com/r/googlephotos/comments/1chhy3e/google_photos_face_recognition_is_horrendous/"
+"GPH-006","323","Google Photos keeps changing my face label photos, is this a known bug?","JoseTaetin","Bug 🐞
+
+I've been dealing with an annoying Google Photos issue for the past few days, and I'm wondering if anyone else is experiencing the same thing.
+
+I use the ""People & Pets"" tab a lot because I have a huge library (over 60k photos, including old family archives). I keep each person's label organized with a good, high-quality, recent photo as their cover/portrait.
+
+But lately Google Photos keeps randomly changing these cover photos on its own. I fix it, and a few hours later it switches back to some old, low-quality photo for no reason. I change it again, and it just reverts to the same older photo. This is happening on both of my devices:
+
+- Mac (web version)
+
+- Samsung S24 (Android)
+
+I've tried clearing cache, force stopping the app, re-selecting the photo, leaving the app idle, etc. Nothing fixes it, and more people's portraits keep changing on their own.
+
+I use this feature a lot (since last year I merged my gallery with my dad's 80k+ photo archive, and I'm from a small city where everyone knows each other, so labels help me keep track of people close to me), but this bug is driving me insane. It's extremely annoying and seems to be getting worse as more people's cover photos keep getting replaced automatically. Has anyone experienced the same? Or is it just me? Any tips?","https://www.reddit.com/r/googlephotos/comments/1pf1d1m/google_photos_keeps_changing_my_face_label_photos/"
+"GPH-007","618","Google Photos Not Showing Photos :(","InterviewEcstatic433","The extracted text includes image alt text; the image itself was not inspected.
+
+* Image Image: r/googlephotos - Google Photos Not Showing Photos :(
+
+*   * I don’t know if this is the case or if it’s a bug and if it has already been mentioned here, but it turns out that last weekend I forgot to renew the data of my debit card with which I manage a more basic Google One subscription. Therefore, they cut off my service a few days ago, but when I paid it again, during that entire week, I had saved a couple of photos on my main phone, which is an iPhone.
+
+When I reactivated the membership, the photos weren’t syncing correctly on any of my devices, and on my other phone, which is a Pixel, where I normally back up all the heavy stuff, I wasn’t seeing these changes reflected either.
+
+The first image is from my iPhone, where it only shows the images I saved during that week, locally on the device without uploading them to Google Photos, apparently. The second image is Google Photos opened from a web browser, where these images, which I obviously censored, are shown, already backed up, along with the ones from my other Pixel phone. And in the third image, when I tried to reinstall Google Photos on my Pixel, it shows up completely empty, as if I had no images in my account.
+
+It’s worth mentioning that this also happens on my iPhone, but since I gave it permissions to show the local images, those are the ones that appear. Does anyone know what can be done?","https://www.reddit.com/r/googlephotos/comments/1r6b2bf/google_photos_not_showing_photos/"
+"GPH-008","369","Google Photos randomly stopped recognizing faces after a certain date - 25th April","LennyFace420Kappa","Some Pictures taken since 25th April 2026 onwards, even with clear shots, of the face are no longer being detected/categorized. Some get detected some do not.
+
+1. have cleared the cache
+
+2. updated the app
+
+3. tried on the web version
+
+4. grouping of faces is enabled as always, still have old pictures categorized correctly with the faces
+
+Anyone who has faced the issue can guide on the matter?","https://www.reddit.com/r/googlephotos/comments/1txv253/google_photos_randomly_stopped_recognizing_faces/"
+"GPH-009","310","Google Photos Removed all of my Face Groups","Abiii28","So, a few days ago I opened my Google Photos app to find a picture of a friend. Somehow, every single face group I had created had been deleted/removed. I can not find that section of ""People and Pets"" in the collection tab either.
+
+Also, I never have turned face grouping off. Every single group (including my own) just disappeared into thin air. Now, even if I manually ""add a face"" to a picture, it doesn't group the pictures of said person together (like it won't prompt me for ""similar face or not"" option like it used to).
+
+Lastly, in the preference settings for Google Photos, where you can select ""Face Labeled as Me"", that option isn't working for me. Every time I click it, my screen goes into loading and a short prompt appears saying ""There was a problem. Please try again later."" It's been like that for a week or so. I've also tried to switch between Google Accounts to check whether my account's been glitchy, but the same applies for all.
+
+I've tried everything: Clearing the cache, uninstalling the app, kept my app running in the background with Wi-Fi on, refresh it constantly, turn the face grouping off and then on.
+
+I have more than 40k pictures backed up and it's really frustrating that I can no longer use that feature.
+
+I would really, really appreciate any advice on this. Thank you for reading.","https://www.reddit.com/r/googlephotos/comments/1t9f9ii/google_photos_removed_all_of_my_face_groups/"
+"GPH-010","073","google photos search doesnt work as it should","sinterkaastosti23","Whenever i search for `ABC` i get no results, when i search for `ABC_2022` i get every image and video with ""2022"" in its name (including the file with `ABC` in its name), when instead it should just give me everything with exactly `ABC_2022` in their name.
+
+When i search for a specific file like `ABC_2022_05_10_18_15_03.mp4` it actually finds the specific file, but also alot of other files that have nothing to do with it..","https://www.reddit.com/r/googlephotos/comments/10p02wz/google_photos_search_doesnt_work_as_it_should/"
+"GPH-011","001","Google Photos search is much worse all of a sudden","PuffThePed","I've been using the search function for years to find places I've visited. One search term I used often is ""museum"" and it showed me all the museums I've been to. Then about 2-3 weeks ago that stopped working. Now it's showing me one museum I visited in 2018 and that's it.
+
+I don't understand why this isn't working anymore or how to fix it. Any ideas?","https://www.reddit.com/r/googlephotos/comments/12yj8um/google_photos_search_is_much_worse_all_of_a_sudden/"
+"GPH-012","102","Google Photos search not recognizing text as well as it used to?","-SpaghettiCat-","I've found that recently I'm having less success retrieving photos when searching for certain written text within the photo.
+
+In the past, if I typed a certain word, GP would fetch pretty much every photo with that word. This feature isn't functioning as well as it used to and I'm wondering if I have a setting disabled or something.
+
+It was very useful for retrieving photos of old documents, text screenshots, etc by keyword.
+
+Really appreciate any help or input. Thanks in advance for any help.","https://www.reddit.com/r/googlephotos/comments/167sr0n/google_photos_search_not_recognizing_text_as_well/"
+"GPH-013","085","Google Photos Search Results","feldoneq2wire","So how is everyone enjoying Google Photos being completely unable to identify the most basic photos that it could 6 months ago?
+
+I've had a dog for 10 years. Now when I search for ""dog"" I get a tiny subset of the photos I used to. Unrelated I use blowtorches for my day job. I search for blowtorch. I get eight results none of which contains a blowtorch. Google Photo search is now so bad I'm longing for the days 20 years ago when we manually entered metadata and tags to photos so we could find them later.
+
+What are people doing now that Google Photos is now incapable of showing us our photos based on search terms?","https://www.reddit.com/r/googlephotos/comments/1ov9y8d/google_photos_search_results/"
+"GPH-014","106","Google photos text search no longer working","[deleted]","I'm not sure when it happened, but for months the search feature in the Google photos app does not seem to work. I'm on android 13
+
+I used to use the search feature in the photos app to search through my screenshots for text that is in the screenshots and it would work incredibly well. I know this gesture works for some of my friends. But at some point it just started returning no results for me. Is there some setting that caused this change??
+
+I take a lot of screenshots of twitter, reddit, and text messages to send to friends, and it becomes pretty much impossible to find what you're looking for without the text search feature. Where did this functionality go???
+
+Edit: I did search the sub and Google before posting, sorry if this is an easy or obvious fix, but I have looked many times over months and not found the solution","https://www.reddit.com/r/googlephotos/comments/1ccui2v/google_photos_text_search_no_longer_working/"
+"GPH-015","453","Google...if you're listening... your photos app is a complete and utter disaster. Please just start over.","frayne182","Serious question… what are the issues? I use it as a daily driver and rarely face any issues","https://www.reddit.com/r/googlephotos/comments/1px47il/googleif_youre_listening_your_photos_app_is_a/"
+"GPH-016","795","Has Google photos grouping faces got bad recently?","sammyybaddyy","This feature I've never had a problem with, but a few months ago it got bad. It's like the right people were correctly grouped and one day someone just did shuffle play. I've tried to reset it by turning the feature off and on again but it's still bad.
+
+Archived post. New comments cannot be posted and votes cannot be cast.","https://www.reddit.com/r/GooglePixel/comments/1et93vn/has_google_photos_grouping_faces_got_bad_recently/"
+"GPH-017","112","How can I find photos taken around a searched photo?","Gritchu","Let's say I searched for a particular photo and found it. Now I want to see the other photos I've taken at that event/place/location. The only way I can see to do it is to note the day of the photo I searched for, then back all the way out of my photo search to my camera's photo roll and then scroll down to the date I noted earlier.
+
+There has to be a better way, right? I cannot find one. I'm hoping you all can enlighten me. If this feature doesn't exist, it should. I have this issue frequently enough.
+
+For reference, I'm using a Pixel 7 Pro with Android 16. The Photos app is updated to the latest version.
+
+Thanks all!","https://www.reddit.com/r/googlephotos/comments/1liwoxl/how_can_i_find_photos_taken_around_a_searched/"
+"GPH-018","646","I can no longer search for photos by date","StimulatorCam","Then there has to be something else going on causing the search to fail, it wouldn't be because of an update to the search feature.","https://www.reddit.com/r/googlephotos/comments/1v3gsds/i_can_no_longer_search_for_photos_by_date/"
+"GPH-019","711","I feel like Google photo search has gotten worse?","twestheimer","The extracted text includes image alt text; the image itself was not inspected.
+
+Image Image: r/googlephotos - I feel like Google photo search has gotten worse? 
+
+I searched Google photos for dog, man, and dog etc. I have a feeling in the past this would have been found?","https://www.reddit.com/r/googlephotos/comments/1faafft/i_feel_like_google_photo_search_has_gotten_worse/"
+"GPH-020","355","Is there no longer an option to sort Google Photos search by date?","MudaThumpa","The only reason I keep buying Pixel phones is for the free photos storage. But Google Photos has gotten progressively worse over the last year, including a horrible update to the editor and now the inability to sort my searches by date. Is there a way to add ""Sort by Date"" back to the search results? Right now it's showing me random pictures that appear to be chosen by AI, and doesn't let me see pictures based on how I've tagged them or let me sort by date. WTF Google?","https://www.reddit.com/r/googlephotos/comments/1nw4ppl/is_there_no_longer_an_option_to_sort_google/"
+"GPH-021","272","Is there some way to manually add faces to photos when google doesn't detect any?","l00k_its_a_cow","I have so many pictures where people aren't detected where there are clearly people in the picture and it's getting annoying, so I was wondering if there was a way to add them in manually.","https://www.reddit.com/r/googlephotos/comments/un7kz8/is_there_some_way_to_manually_add_faces_to_photos/"
+"GPH-022","523","My Google Photos layout changed. How do it change it back?","NSquared3131","I’ve been using this app for years and always like how it spaced out the photos/videos by day. Now everything is lumped together and looks like Apple Photos. Is there any way to change it back?","https://www.reddit.com/r/googlephotos/comments/1p339c7/my_google_photos_layout_changed_how_do_it_change/"
+"GPH-023","577","New Google Photos UI is Trash....","BadKarma6996","I hate the new Google Photos update!
+
+No structure! No organization!
+
+Just endless scrolling of photos and videos merge together!","https://www.reddit.com/r/googlephotos/comments/1r4s83u/new_google_photos_ui_is_trash/"
+"GPH-024","261","No Search Button on Android?","jdm2010","Can't believe they eliminated the search field and replaced it with a ""backup complete"" line. The dot around my icon was fine. Now you have to hit ASK then a search field comes up. BOOO! Search is too highly used IMO.","https://www.reddit.com/r/googlephotos/comments/1q98i4c/no_search_button_on_android/"
+"GPH-025","798","Question about Google Photos Search & Date Navigation","Far-Passage6677","Hi everyone, I have a question about using Google Photos.
+
+When I search for a city name in Google Photos, it correctly shows me photos taken in that city during my past trips. After opening a specific photo, I want to jump directly to the exact date in my photo timeline.
+
+Right now, if I tap the Info icon, I can see the Details including the date the photo was taken. But if I tap the date, it only allows me to edit the date — it doesn’t take me to that day in the main timeline.
+
+So my question is:
+
+➡️ Is there a way to jump straight to that exact day in Google Photos from the photo details screen?
+
+Thanks in advance for any help!","https://www.reddit.com/r/googlephotos/comments/1ojiwh8/question_about_google_photos_search_date/"
+"GPH-026","045","Search is absolutely atrocious now.","SirBiscuit45","I have used Google Photos since 2015, at the time when owning a Google Nexus/Pixel phone entitled you to special perks, unlimited storage being one, until they removed device-specific exclusive features a few years back.
+
+It has always been my godsend for finding specific photos from years gone by, thanks to the search function being so pinpoint using the littlest of terms.
+
+If that didn't work, typing in specific keywords paired with quotation marks on each side, at least for me, would succeed without fail the majority of the time, for things like comics, memes, signage, DVD covers, etc.
+
+In recent months, thanks to Google's unnecessary shoehorning of Gemini/AI (which is merely a buzzword), it now feels nearly impossible to find anything, and is the equivalent of pulling teeth out when you attempt to.
+
+The new ""Best match"" tab is useless and mostly inaccurate, with nonsense ""matches"".
+
+I really do hope the search functionality irons itself out in the coming months, but the one perk that made Google Photos very useful in a pinch to me is gone. 😞","https://www.reddit.com/r/googlephotos/comments/1fmvxd6/search_is_absolutely_atrocious_now/"
+"GPH-027","099","Search text in picture (OCR) not always working","TupacFR","Hello One of the most common search that I do on Google photos is text that I remember is on the picture. I took a screenshot couple of weeks back, and I type a word I knew was there and google photos couldn't find it. I went back to find that screenshot and the word was clearly written. This is just an example but I notice I have more and more fails from Google photo search, why isn't it consistent? How to improve it","https://www.reddit.com/r/googlephotos/comments/1bgypnl/search_text_in_picture_ocr_not_always_working/"
+"GPH-028","301","Searching file name not working","MartinKSmith","Since starting using Google Photos I've been able to search for a file name and have it bring up everything that matches that file name, but now it's bringing up nothing at all and telling me there are no results and to try a synonym or a more general keyword.
+
+Is anyone else experiencing this? Is it a glitch that'll likely be fixed or is this the new normal?","https://www.reddit.com/r/googlephotos/comments/10hqpbu/searching_file_name_not_working/"
+"GPH-029","377","The new Google Photos layout is complete trash now","dunderball","You used to be able to pinch the gallery to a layout where all the thumbnails are uniform. That is no longer available. The gallery will now display some items with a larger thumbnail (seemingly at random).
+
+As someone in software engineering I really hate product managers that come up with these stupid ideas with no data to back up these decisions whatsoever.
+
+Edit: If you scroll down your gallery for a tiny bit, a three dot menu appears. Tap that and an option for ""Show dates on grid"" appears. It makes it less awful but the inconsistent grid/thumbnail sizing still appears","https://www.reddit.com/r/googlephotos/comments/1uw75xg/the_new_google_photos_layout_is_complete_trash_now/"
+"GPH-030","634","The people section is missing in my google photos🤔","Salty_Exit_7174","I don't know how, but the people section in my google photos disappeared. I turned on the group similar faces setting again and nothing is happening! I wonder if I can get back my people tab🙂","https://www.reddit.com/r/googlephotos/comments/1t0vqmv/the_people_section_is_missing_in_my_google_photos/"
+"GPH-031","706","What happened to google photos search???","Junkeii_","Every time I try to search up ""dog"" my feed only shoes me some pictures of dogs but not ALL my dog pics. Wtf happened?? It used to show me every picture that it identified as a dog, but now it doesnt? Whats going on?","https://www.reddit.com/r/googlephotos/comments/1peoxfe/what_happened_to_google_photos_search/"
+"GPH-032","227","WHOA, Google Photos -- seriously, WTF?","Alaska_Jack","Using Google Photos in a web browser, I just tried to search for a photo.
+
+Instead of providing the results by date, it gives me results based on what it thinks is the ""relevance"" of each photo. More critically, there is no option to go back to ""show results by date.""
+
+MY DUDES. WTF. I NEED TO BE ABLE TO LOOK THEM THROUGH CHRONOGICALLY. Seriously! What the hell?!","https://www.reddit.com/r/googlephotos/comments/1l1ssr7/whoa_google_photos_seriously_wtf/"
+"GPH-033","129","Why did they ruin Google photos search???","NeillDrake","Just last week, Google Photos search was awesome. Need a pic of passport? Just type ""Passport"". Forgot your Known Traveler Number? Search ""Global Entry Card"". Now I search any of the above and it shows be thousands of photos with absolutely no relevance. What happened?","https://www.reddit.com/r/googlephotos/comments/1fvq7hr/why_did_they_ruin_google_photos_search/"
+"GPH-034","094","Advanced Google Photos Search Syntax","RenoRae","This is my first time posting on Reddit. I think that this is the answer to my question, but I am not computer literate enough to truly understand what I am reading. Is it possible for you to break this down once more so that I could have a map to follow?
+
+Here is the question I was going to pose:
+
+""I want to create a photo album gift of all the pictures I have:
+
+1. Of ""Sue"", or
+
+2. By ""Sue"", and
+
+3. Taken in 2021.
+
+I am able to create an album of all pictures taken in 2021.
+
+I am able to create an album of all pictures of ""Sue"".
+
+I cannot figure out how to combine these two (or more) search terms. How can I make a gift book for ""Sue"" celebrating 2021 when I have thousands and thousands of photos?
+
+Because I am always willing to press my luck, after I make this first Album, I would like to make a second album. This would be every picture:
+
+1. Of ""Sue"", or
+
+2. By ""Sue"", and
+
+3. Taken in 2022, and
+
+4. Without ""Jane"".
+
+I have been trying to figure this out (without asking for help) for a while. I have created an album with all the photos ""Created by Sue"".","https://www.reddit.com/r/googlephotos/comments/rxthdo/advanced_google_photos_search_syntax/"
+"GPH-035","760","Ask Photos still not showing up on Pixel 10 Pro XL (main account only)","Mysticwaterfall2","Same here, and I've been US the entire time. I don't even get the options for Gemini in photos I'm supposed to turn on. Gemini just tells me my account can't be accessed. Support just told me it was a gradual rollout.","https://www.reddit.com/r/GooglePixel/comments/1nictqc/ask_photos_still_not_showing_up_on_pixel_10_pro/"
+"GPH-036","121","Google Photos date search completely changed?","Fluid_Beat_1282","I have been tearing my hair out over this for the past couple of days and just figured out how to fix it by accident. When you're on the big block of photos under ""Most recent,"" do the pinch to zoom in action anywhere on that block. You'll first get a view of small thumbnails and large font with just the month and year (July 2019, for example). If you pinch to zoom in one more time, the thumbnails will enlarge slightly and you'll see the full date - just like in the good ol' days.","https://www.reddit.com/r/googlephotos/comments/1ob8og4/google_photos_date_search_completely_changed/"
+"GPH-037","773","Google Photos face recognition has suddenly stopped working","queenbiscuit311","go to settings, turn face detection off, then back on again. fixed it instantly for me","https://www.reddit.com/r/googlephotos/comments/1rcqt49/google_photos_face_recognition_has_suddenly/"
+"GPH-038","658","Google photos face recognition is horrendous","dude111","Face grouping or recognition has been available since the Picasa days. Has always worked fine for me. I wonder if they moved to a more generalized version of the recognition algo? I expect that to be less perfect because you know ""generalized AI is around the corner"" and all that jazz.","https://www.reddit.com/r/googlephotos/comments/1chhy3e/google_photos_face_recognition_is_horrendous/"
+"GPH-039","324","Google Photos keeps changing my face label photos, is this a known bug?","siotraa","Having the same issue, unfortunetly it keeps chosing the absolute worst picture of me and my fiance. No matter how many times I override it, it goes back.","https://www.reddit.com/r/googlephotos/comments/1pf1d1m/google_photos_keeps_changing_my_face_label_photos/"
+"GPH-040","621","Google Photos Not Showing Photos :(","yottabit42","There's currently a syncing problem . Send feedback in the app. And wait for Google to fix it.","https://www.reddit.com/r/googlephotos/comments/1r6b2bf/google_photos_not_showing_photos/"
+"GPH-041","370","Google Photos randomly stopped recognizing faces after a certain date - 25th April","Far-Philosopher-9984","Google Photos tags all my new pictures of exisitng people. (There are lags in the backup though)
+
+However, I had a baby 6 months ago. I created his profile, but Google Photos doesn't auto detect him. I have to keep tagging him manually which isn't practical.
+
+There used to be the pop up to check if 2 faces were the same. That has also stopped.","https://www.reddit.com/r/googlephotos/comments/1txv253/google_photos_randomly_stopped_recognizing_faces/"
+"GPH-042","316","Google Photos Removed all of my Face Groups","Abiii28","I have seen a comment from a ""Google expert"" in the Google community. He said to let the app run on background, with WiFi on, overnight, charging connected. He said it might take days or even weeks for the app to go through each and every picture before it begins assigning faces automatically. Although, I believe this to be the worst possible BS I've heard in a long time.","https://www.reddit.com/r/googlephotos/comments/1t9f9ii/google_photos_removed_all_of_my_face_groups/"
+"GPH-043","076","google photos search doesnt work as it should","imnotmarbin","They changed something internally but didn't make any announcement, no way to ""fix"" this, another example that people might be more familiar with, is they keyword 'WA', before you could look for any picture from WhatsApp searching that, now we don't even get results. Among other things, like I said, since they didn't make any announcement we don't know if it's a bug or if it's going to be permanent.","https://www.reddit.com/r/googlephotos/comments/10p02wz/google_photos_search_doesnt_work_as_it_should/"
+"GPH-044","002","Google Photos search is much worse all of a sudden","steveofthejungle","That search used to give me a lot too, now it’s only showing pictures that have the word museum in them. That sucks!","https://www.reddit.com/r/googlephotos/comments/12yj8um/google_photos_search_is_much_worse_all_of_a_sudden/"
+"GPH-045","103","Google Photos search not recognizing text as well as it used to?","Various-Ad-7771","I am experiencing the same. I am testing Drive's OCR and it seems to be working fine. Fast too. Screenshot of text is searchable in a few minutes.","https://www.reddit.com/r/googlephotos/comments/167sr0n/google_photos_search_not_recognizing_text_as_well/"
+"GPH-046","087","Google Photos Search Results","ConfectionLess1343","interesting. I get thousands of photos for 'dog' and also for 'blowtorch' (I actually worked with it a bit too :)). Have you tried searching on web? did you backup all your photos?","https://www.reddit.com/r/googlephotos/comments/1ov9y8d/google_photos_search_results/"
+"GPH-047","110","Google photos text search no longer working","Low-City8341","en mettant le texte à rechercher enter ""guillemets"", il semble que cela fonctionne.","https://www.reddit.com/r/googlephotos/comments/1ccui2v/google_photos_text_search_no_longer_working/"
+"GPH-048","454","Google...if you're listening... your photos app is a complete and utter disaster. Please just start over.","kimsemi","ill give just a couple... The people thing where it finds a face via AI and then compiles them...there doesnt seem to be a way to initiate this. You should be able to select a photo and an option to find others like it and compile them. But nope. The UI for it makes no sense.
+
+Next... I dont care where other photos are from.. messenger, messages, screenshots, etc.. but it does. So I cant find anything. I just want one place where all photos go. If you want to do cutsey albums or collages and crap, fine - make that a separate thing. But when I go into photos, i just want to see all my photos. Simple.
+
+And then on top of all that... cloud vs downloaded. is it on my device or in the spirit world? I have no idea. It might be in both. It might not.
+
+Id love to say this is a user error / lack of knowledge... but Ive been in technology for 30 years. The app is unusable and makes no sense. They need to stop trying to cute it up and make it functional.","https://www.reddit.com/r/googlephotos/comments/1px47il/googleif_youre_listening_your_photos_app_is_a/"
+"GPH-049","796","Has Google photos grouping faces got bad recently?","StimulatorCam","Nope, mine seems to be working normally. Even recognized my son who was wearing a motorcycle helmet and looking the other direction, seriously.","https://www.reddit.com/r/GooglePixel/comments/1et93vn/has_google_photos_grouping_faces_got_bad_recently/"
+"GPH-050","113","How can I find photos taken around a searched photo?","RedheadEnergy","There might be a better way. But I'll tell you how I do it. You search for the main picture you want. Look at the date, let's say June 23, 2024. Then do another search for June 2024. Or even just June","https://www.reddit.com/r/googlephotos/comments/1liwoxl/how_can_i_find_photos_taken_around_a_searched/"
+"GPH-051","647","I can no longer search for photos by date","yottabit42","Send feedback in the app. Searching by the exact date you used works fine for me.","https://www.reddit.com/r/googlephotos/comments/1v3gsds/i_can_no_longer_search_for_photos_by_date/"
+"GPH-052","712","I feel like Google photo search has gotten worse?","twestheimer","I just got an email that they will be adding Ask Photos .... will that get us back to decent search again?","https://www.reddit.com/r/googlephotos/comments/1faafft/i_feel_like_google_photo_search_has_gotten_worse/"
+"GPH-053","356","Is there no longer an option to sort Google Photos search by date?","TheManWithSaltHair","My Pixel running v7.48 still has ‘Most recent’ and ‘Best match’ in the search results. Is that what you mean? Perhaps it’s because I haven’t had the AI ‘improvements’ inflicted upon me yet. I wonder if you can turn them off somewhere at the account level.","https://www.reddit.com/r/googlephotos/comments/1nw4ppl/is_there_no_longer_an_option_to_sort_google/"
+"GPH-054","273","Is there some way to manually add faces to photos when google doesn't detect any?","eddd92","This problem still isnt resolved. It shouldnt be that hard to just add people manually. Google Photos is now often mistagging wrong people together, i try to give feedback alot and remoce the photos. It seems like the trained regconition model is somehow stubborn. Some human input (read: manual tagging ) should help alot.","https://www.reddit.com/r/googlephotos/comments/un7kz8/is_there_some_way_to_manually_add_faces_to_photos/"
+"GPH-055","524","My Google Photos layout changed. How do it change it back?","pjaidev","I know what you’re talking about and I’m trying to revert this change too! Pinching to zoom doesn’t change the layout anymore, it just changes the size of the thumbnail images on screen. Photos appear in an unbroken grid, with the day specified in a bubble at the top. Insanely difficult to figure out which day I’m looking at. The annoying part is, this is probably some kind of A/B testing by Google. My wife still has the old layout on her app.","https://www.reddit.com/r/googlephotos/comments/1p339c7/my_google_photos_layout_changed_how_do_it_change/"
+"GPH-056","580","New Google Photos UI is Trash....","Clear_Tangerine5110","That's wild. I'm also on iOS (17 pro max) and have GP 7.63 with no issues. I wonder why it's so sporadic as to who this affects.","https://www.reddit.com/r/googlephotos/comments/1r4s83u/new_google_photos_ui_is_trash/"
+"GPH-057","262","No Search Button on Android?","yottabit42","I still have a search button at the bottom right. Very big, can't miss it: Photos, Collections, Create, Search.","https://www.reddit.com/r/googlephotos/comments/1q98i4c/no_search_button_on_android/"
+"GPH-058","800","Question about Google Photos Search & Date Navigation","Far-Passage6677","I tried but it is not working, if you can kindly share with me where excatly I shall click, is it the informaiton bar on the right hand side?","https://www.reddit.com/r/googlephotos/comments/1ojiwh8/question_about_google_photos_search_date/"
+"GPH-059","046","Search is absolutely atrocious now.","Reeceeboii_","Yep, a fix is inbound:
+
+https://www.androidpolice.com/no-you-werent-imagining-things-google-photos-search-has-been-broken-lately/
+
+* Google Photos' image search feature has been broken for roughly 20 days. The feature stopped showing search results, or showed results that had nothing to do with the search prompt.
+
+* Search functionality broke sometime between the release of Google Photos 6.93.0.657009179 and version 6.95.0.663027175 in August.
+
+* A fix for the search bug is rolling out now. Update to the latest version of Google Photos to restore search functionality.","https://www.reddit.com/r/googlephotos/comments/1fmvxd6/search_is_absolutely_atrocious_now/"
+"GPH-060","100","Search text in picture (OCR) not always working","wjhladik","One idea. View photos, use lens, select text, edit description, paste.
+
+I know you want gp to be able to auto search for the text without it being in the description, but if it's broke...","https://www.reddit.com/r/googlephotos/comments/1bgypnl/search_text_in_picture_ocr_not_always_working/"
+"GPH-061","302","Searching file name not working","Intelligent_Bison968","I tried it and it does not work fo me either. But I did not used it before. I do not know why it is not working but you can search by name in other apps like google files.","https://www.reddit.com/r/googlephotos/comments/10hqpbu/searching_file_name_not_working/"
+"GPH-062","378","The new Google Photos layout is complete trash now","TheRealFrantik","I'm on my Pixel 10a and I'm on the July 6 update, and everything is exactly the same, so not sure if you're on a different version or if there's something wrong with your phone or what.","https://www.reddit.com/r/googlephotos/comments/1uw75xg/the_new_google_photos_layout_is_complete_trash_now/"
+"GPH-063","635","The people section is missing in my google photos🤔","michaelseanc","I accidentally toggled it off 3 weeks ago and it still has not come back for me after toggling it back on. I can manually tag people in images but zero face groupings. Gemini tells me to be patient and gave me a bunch of little hacks, none of which have made a difference. I’ve got 140K images in mine and I understand reindexing will take awhile but 3+ weeks with not a single grouping seems a bit long.","https://www.reddit.com/r/googlephotos/comments/1t0vqmv/the_people_section_is_missing_in_my_google_photos/"
+"GPH-064","710","What happened to google photos search???","psykoX88","Probably what you remember to be the search button, it should say “ask” now and that utilizes Gemini, but if you tap it twice, it goes back to the old-school search","https://www.reddit.com/r/googlephotos/comments/1peoxfe/what_happened_to_google_photos_search/"
+"GPH-065","228","WHOA, Google Photos -- seriously, WTF?","send_me_a_naked_pic","I still want a map view from the web, it's so annyoing that you can only do that from the app. WTF.","https://www.reddit.com/r/googlephotos/comments/1l1ssr7/whoa_google_photos_seriously_wtf/"
+"GPH-066","132","Why did they ruin Google photos search???","jehoshua42","i've been using degoo with photos for a while now, but while it has its uses, i would forever miss photos' automatic facial recog","https://www.reddit.com/r/googlephotos/comments/1fvq7hr/why_did_they_ruin_google_photos_search/"
+"GPH-067","095","Advanced Google Photos Search Syntax","stpfun","Did you ever figure this out? I know how to search for most of those things but not for 'photos by ""Sue""'.
+
+For me, I can do `""Sue"" -""Jane"" from 2019` and get all photos of Sue that don't contain Jane from 2019. But I can't figure out anyway to search for photos taken by a certain person.","https://www.reddit.com/r/googlephotos/comments/rxthdo/advanced_google_photos_search_syntax/"
+"GPH-068","761","Ask Photos still not showing up on Pixel 10 Pro XL (main account only)","Illyria9","I don't have that option either on my main account. If it's a gradual rollout, I'm really unlucky because a new test account got it immediately. I'm almost sure that Google support simply reads the documentation we have access to as well online and repeats what's there.","https://www.reddit.com/r/GooglePixel/comments/1nictqc/ask_photos_still_not_showing_up_on_pixel_10_pro/"
+"GPH-069","126","Google Photos date search completely changed?","doyoujive26","That's not an option for me anymore - it just separates it into two sections and you can't sort or click on the Most Recent option","https://www.reddit.com/r/googlephotos/comments/1ob8og4/google_photos_date_search_completely_changed/"
+"GPH-070","775","Google Photos face recognition has suddenly stopped working","NIPLZ","I have the same issue as OP and kinda want to do this. But I've spent hours going through my photos and correcting/adding faces. It would be soul crushing to lose all of that.","https://www.reddit.com/r/googlephotos/comments/1rcqt49/google_photos_face_recognition_has_suddenly/"
+"GPH-071","659","Google photos face recognition is horrendous","bigbeckster","I removed all faces/names and had it re-sync all photos to fix my problem. It took about 4 days before I could reassign names to faces","https://www.reddit.com/r/googlephotos/comments/1chhy3e/google_photos_face_recognition_is_horrendous/"
+"GPH-072","325","Google Photos keeps changing my face label photos, is this a known bug?","chippenpuepp","Many users experience the same issue. Google periodically selects what it “thinks” is the best face, even though a feature photo has been set manually.
+
+This manual override of the auto selected festure photo is a documented feature. Hence the behaviour seems to be a bug.
+
+I guess stuff like that happens when AI is taking over.","https://www.reddit.com/r/googlephotos/comments/1pf1d1m/google_photos_keeps_changing_my_face_label_photos/"
+"GPH-073","622","Google Photos Not Showing Photos :(","MatthewWeathers","If it's a problem with syncing: I see in the first photo, you're connected to WiFi. In the 3rd photo, your phone is in airplane mode and has low battery. Maybe it can't sync in airplane mode? Or maybe battery saver stops it from syncing?","https://www.reddit.com/r/googlephotos/comments/1r6b2bf/google_photos_not_showing_photos/"
+"GPH-074","371","Google Photos randomly stopped recognizing faces after a certain date - 25th April","Conscious_Tank5786","Same for me. The checking has stopped for me, as has auto detection. It's been since October 2025 for me","https://www.reddit.com/r/googlephotos/comments/1txv253/google_photos_randomly_stopped_recognizing_faces/"
+"GPH-075","317","Google Photos Removed all of my Face Groups","Frarod17","alright it's been a day since I've turned it back on but I got photos from 2014 backed up. this is gonna take a long time","https://www.reddit.com/r/googlephotos/comments/1t9f9ii/google_photos_removed_all_of_my_face_groups/"
+"GPH-076","079","google photos search doesnt work as it should","Intelligent_Bison968","Google photos was not meant to search by name. Most users have no idea what files are named. Instead it's supposed to search by location, names of peoples in photos, items in photos.","https://www.reddit.com/r/googlephotos/comments/10p02wz/google_photos_search_doesnt_work_as_it_should/"
+"GPH-077","003","Google Photos search is much worse all of a sudden","PuffThePed","I just realized it's only giving me photos that are in a an album that has ""museum"" in the title. It seems the search function was degraded and now doesn't look at location. Really sucks.","https://www.reddit.com/r/googlephotos/comments/12yj8um/google_photos_search_is_much_worse_all_of_a_sudden/"
+"GPH-078","105","Google Photos search not recognizing text as well as it used to?","purplepotato3650","Just inquired on the same thing and if you use quotations around the text you are searching for, it’ll show up. “Word”","https://www.reddit.com/r/googlephotos/comments/167sr0n/google_photos_search_not_recognizing_text_as_well/"
+"GPH-079","088","Google Photos Search Results","feldoneq2wire","Why would I ""search on web"" for photos that currently exist on my phone yet Google suddenly cannot find?","https://www.reddit.com/r/googlephotos/comments/1ov9y8d/google_photos_search_results/"
+"GPH-080","111","Google photos text search no longer working","purplepotato3650","Not sure if you found a solution but I just inquired on the same thing and if you use quotations around the text you are searching for, it’ll show up. “Word”","https://www.reddit.com/r/googlephotos/comments/1ccui2v/google_photos_text_search_no_longer_working/"
+"GPH-081","455","Google...if you're listening... your photos app is a complete and utter disaster. Please just start over.","FatherBob22","It's really really easy to tell if a photo is on the phone, in the cloud, or both....","https://www.reddit.com/r/googlephotos/comments/1px47il/googleif_youre_listening_your_photos_app_is_a/"
+"GPH-082","114","How can I find photos taken around a searched photo?","Flash604","1. In the search results, click on the photo you've found so that it's now the only one displaying.
+
+2. Drag it upwards, which will bring up all the info about it, including a map of where it was taken.
+
+3. Click on the map to see the photos taken nearby.","https://www.reddit.com/r/googlephotos/comments/1liwoxl/how_can_i_find_photos_taken_around_a_searched/"
+"GPH-083","650","I can no longer search for photos by date","princessegem","I can search by date/year but it no longer shows them in chronological order. This is SO annoying. They've been on my ass about storage space, i finally sit down w my hard drive to start organizing and they are making it so challenging
+
+Edit: on my phone, they are ordered by date but on my computer its a free for all","https://www.reddit.com/r/googlephotos/comments/1v3gsds/i_can_no_longer_search_for_photos_by_date/"
+"GPH-084","714","I feel like Google photo search has gotten worse?","bytelover83","yeah, the capabilities have definitely downgraded, which is a shame since because i have basically google stuff everywhere else i decided to switch completely to google photos on my iPad and i was so dissapointed when i tried to search text or describe things.","https://www.reddit.com/r/googlephotos/comments/1faafft/i_feel_like_google_photo_search_has_gotten_worse/"
+"GPH-085","358","Is there no longer an option to sort Google Photos search by date?","Gmitch528","Mine was working a week ago and now it's just a mess. Did yours go back to working?
+
+Edit: I figured it out. On the switch results screen I could pinch to zoom or do the opposite to expand and the dates showed up.","https://www.reddit.com/r/googlephotos/comments/1nw4ppl/is_there_no_longer_an_option_to_sort_google/"
+"GPH-086","274","Is there some way to manually add faces to photos when google doesn't detect any?","ItsDaBunnyYT","Google needs to add this and the ability to put folders inside folders. The gold standard for saving photos lacks the most basic of features.","https://www.reddit.com/r/googlephotos/comments/un7kz8/is_there_some_way_to_manually_add_faces_to_photos/"
+"GPH-087","525","My Google Photos layout changed. How do it change it back?","NSquared3131","Please keep me posted and let me know if you’re able to change it back to the old layout. It’s so frustrating","https://www.reddit.com/r/googlephotos/comments/1p339c7/my_google_photos_layout_changed_how_do_it_change/"
+"GPH-088","582","New Google Photos UI is Trash....","Wise-Reflection-7400","Yep got it the other day on iOS and it's just a mess. I used Google Photos on iOS primarily (other than for backups) because I much preferred the layout that made each day clearly seperate from another. Now it's just an ugly neverending grid","https://www.reddit.com/r/googlephotos/comments/1r4s83u/new_google_photos_ui_is_trash/"
+"GPH-089","264","No Search Button on Android?","Real-Philosophy-6860","Ce n'est pas ""Rechercher"", c'est ""Demander"" et l'I.A. qui prend la relève, donc ""Rechercher"" sans l'I.A. est impossible.","https://www.reddit.com/r/googlephotos/comments/1q98i4c/no_search_button_on_android/"
+"GPH-090","049","Search is absolutely atrocious now.","SirBiscuit45","I know! 😭 I’ve been with Android for 9 years, but I decided to try Apple Photos search on my iPad out of desperation, and it found what I was looking for the first time! This is seriously making me consider my options with iOS, as it felt like pulling hair out over the weekend 😔","https://www.reddit.com/r/googlephotos/comments/1fmvxd6/search_is_absolutely_atrocious_now/"
+"GPH-091","303","Searching file name not working","MartinKSmith","Yeah, I used to use it all the time. But tried today and nothing. Very frustrating. I'm hoping it's a bug and not something that has been removed... Because, like, why remove it??","https://www.reddit.com/r/googlephotos/comments/10hqpbu/searching_file_name_not_working/"
+"GPH-092","379","The new Google Photos layout is complete trash now","dunderball","I'm on a pixel 9 and wife on pixel 10. Must be feature flagged and rolling out in stages, or maybe they're A/B testing.","https://www.reddit.com/r/googlephotos/comments/1uw75xg/the_new_google_photos_layout_is_complete_trash_now/"
+"GPH-093","636","The people section is missing in my google photos🤔","avi018","Going through the same situation. God knows what's wrong with this face grouping feature. I'm going mad","https://www.reddit.com/r/googlephotos/comments/1t0vqmv/the_people_section_is_missing_in_my_google_photos/"
+"GPH-094","229","WHOA, Google Photos -- seriously, WTF?","Alaska_Jack","Agreed. I also can't believe that, after all these years, I can't just TELL Google Photos who is in the photo (e.g., if their back is turned).","https://www.reddit.com/r/googlephotos/comments/1l1ssr7/whoa_google_photos_seriously_wtf/"
+"GPH-095","136","Why did they ruin Google photos search???","M4NOOB","For me the only option is Google photos or self hosted. I do need it to be available from multiple devices and also multiple devices saving to it, 2 of those devices automatically. It's too cumbersome and I'm also too lazy to handle and organize all of that manually from 1 device. I also use the Google photos search and automatic face grouping way too often. Also sharing albums a lot","https://www.reddit.com/r/googlephotos/comments/1fvq7hr/why_did_they_ruin_google_photos_search/"
+"GPH-096","096","Advanced Google Photos Search Syntax","OmegaSnail","I have had much success with searching on the model of the device (camera or phone) that was used to take the photo. Provided of course that this is somewhat unique to that person. You can finde this in the ""Info"" window for each photo.","https://www.reddit.com/r/googlephotos/comments/rxthdo/advanced_google_photos_search_syntax/"
+"GPH-097","762","Ask Photos still not showing up on Pixel 10 Pro XL (main account only)","Mysticwaterfall2","Yeah, it annoys me to no end that brand new people get it with no issues, but the account I have forever I'm always just told it's a ""gradual rollout"". Seems to just be punishing older accounts.","https://www.reddit.com/r/GooglePixel/comments/1nictqc/ask_photos_still_not_showing_up_on_pixel_10_pro/"
+"GPH-098","128","Google Photos date search completely changed?","CindieLou","I know this is from a bit ago, but I've found this works for me - I use month-day to clean my photos, so for example, I'll search March 15 and delete dups and screenshots across all years for that date. Typing ""March 15"" used to work, as you mention, but now I get those fuzzy results with photos from the date and near the date. If you use MM-DD (or, depending on your location, I suppose DD-MM?) - NOW I get exactly what I'm looking for...
+
+Up at the top I still get most relevant, but the next section down is ""Most Recent"" which does include all the photos. So for March 15, now I type ""03-15"".","https://www.reddit.com/r/googlephotos/comments/1ob8og4/google_photos_date_search_completely_changed/"
+"GPH-099","777","Google Photos face recognition has suddenly stopped working","MoneySings","My face detection hasn't worked in a long time. I tried all that.. Even wiped all photos and tree uploaded - nope. Even thinks my dog is my uncle","https://www.reddit.com/r/googlephotos/comments/1rcqt49/google_photos_face_recognition_has_suddenly/"
+"GPH-100","661","Google photos face recognition is horrendous","bigbeckster","Should have been more specific - I turned off ""Face Grouping "" which deleted it all. Then turned it back on.
+
+Google Photos > Settings > Group similar faces > Face Groups > Off","https://www.reddit.com/r/googlephotos/comments/1chhy3e/google_photos_face_recognition_is_horrendous/"

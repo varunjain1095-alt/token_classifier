@@ -1,0 +1,6 @@
+name,review_text,rating,date,product
+John Doe,"This product is amazing! Great quality and fast shipping.",5,2024-01-15,Widget A
+Jane Smith,"Terrible experience. Product broke after 2 days.",1,2024-01-16,Widget B
+Bob Johnson,"Average product. Does what it says but nothing special.",3,2024-01-17,Widget A
+Alice Brown,"Excellent customer service and high quality product.",5,2024-01-18,Widget C
+Charlie Wilson,"Not worth the money. Poor build quality.",2,2024-01-19,Widget B
