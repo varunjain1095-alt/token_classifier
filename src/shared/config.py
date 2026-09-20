@@ -10,17 +10,19 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
     
-    # OpenAI Configuration
-    openai_api_key: str = Field(..., env="OPENAI_API_KEY")
+    # OpenAI Configuration — optional at boot so the container starts;
+    # preview/classification surfaces its own error when no key is set.
+    openai_api_key: str = Field("", env="OPENAI_API_KEY")
     openai_model_name: str = Field("gpt-5-mini", env="OPENAI_MODEL_NAME")
-    
-    # Database Configuration
-    database_url: str = Field(..., env="DATABASE_URL")
+
+    # Database Configuration — optional; the app falls back to in-memory/
+    # filesystem storage when no database is configured.
+    database_url: str = Field("", env="DATABASE_URL")
     postgres_host: str = Field("localhost", env="POSTGRES_HOST")
     postgres_port: int = Field(5432, env="POSTGRES_PORT")
     postgres_db: str = Field("review_classification", env="POSTGRES_DB")
     postgres_user: str = Field("postgres", env="POSTGRES_USER")
-    postgres_password: str = Field(..., env="POSTGRES_PASSWORD")
+    postgres_password: str = Field("", env="POSTGRES_PASSWORD")
     
     # Redis Configuration
     redis_url: str = Field("redis://localhost:6379/0", env="REDIS_URL")
@@ -28,7 +30,7 @@ class Settings(BaseSettings):
     celery_result_backend: str = Field("redis://localhost:6379/2", env="CELERY_RESULT_BACKEND")
     
     # Application Configuration
-    secret_key: str = Field(..., env="SECRET_KEY")
+    secret_key: str = Field("change-me-in-production", env="SECRET_KEY")
     flask_env: str = Field("development", env="FLASK_ENV")
     debug: bool = Field(True, env="DEBUG")
     
