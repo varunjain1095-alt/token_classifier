@@ -75,7 +75,13 @@ async def health_check():
 
 @app.get("/")
 async def root():
-    """Root endpoint."""
+    """Root: serve the built SPA when present, else identify as the API."""
+    dist = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+        'frontend', 'dist', 'index.html')
+    if os.path.isfile(dist):
+        from fastapi.responses import FileResponse
+        return FileResponse(dist)
     return {"message": "Review Classification Workbench API"}
 
 
