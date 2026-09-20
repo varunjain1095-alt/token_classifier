@@ -30,6 +30,14 @@ npm run dev
 curl http://127.0.0.1:8021/api/health
 ```
 
+## Deployment (Railway)
+- **Repo**: https://github.com/varunjain1095-alt/token_classifier (`main` branch)
+- **Flow**: local change → `git push` → Railway rebuilds via `Dockerfile` → healthcheck `/healthz`
+- **Production shape**: single service — FastAPI serves `frontend/dist` (SPA fallback in `src/api/main.py`, `PORT` env honored)
+- **Railway vars**: `OPENAI_API_KEY`, `SECRET_KEY`, `FLASK_ENV=production`, `DEBUG=false` (DB/Redis optional — in-memory fallback)
+- **Local prod-parity check**: `cd frontend && npm run build`, then uvicorn serves the app on :8021 (no Vite needed)
+- **Caveat**: `tmp/uploads` + sessions are ephemeral on Railway unless a volume is attached
+
 ## Current Model
 `OPENAI_MODEL_NAME=gpt-5-mini` (`.env`, default also in `src/shared/config.py`).
 
