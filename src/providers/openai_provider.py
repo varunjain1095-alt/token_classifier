@@ -47,19 +47,35 @@ class OpenAIProvider:
             logger.error("Failed to initialize OpenAI client", error=str(e))
             return False
     
-    async def classify_single(self, payload: Dict[str, Any], 
-                            request_id: str = None) -> Dict[str, Any]:
+    def _client_for(self, api_key: str = None):
+        """Resolve the client for a call.
+
+        A per-call key gets a dedicated client so one user's key never
+        leaks into the shared client used by other requests.
+        """
+        if api_key:
+            try:
+                return openai.AsyncOpenAI(api_key=api_key)
+            except Exception as e:
+                logger.error("Failed to create per-call OpenAI client", error=str(e))
+                return None
+        return self.client
+
+    async def classify_single(self, payload: Dict[str, Any],
+                            request_id: str = None,
+                            api_key: str = None) -> Dict[str, Any]:
         """Classify a single request."""
         try:
-            if not self.client:
+            client = self._client_for(api_key)
+            if not client:
                 return {
                     'success': False,
                     'error': 'OpenAI client not initialized',
                     'provider_status': ProviderStatus.ERROR.value
                 }
-            
+
             # Make API call with retry logic
-            response = await self._make_request_with_retry(payload)
+            response = await self._make_request_with_retry(payload, client)
             
             if response['success']:
                 # Extract classification result
@@ -92,28 +108,29 @@ class OpenAIProvider:
                 'provider_status': ProviderStatus.ERROR.value
             }
     
-    async def classify_batch(self, payloads: List[Dict[str, Any]], 
-                           batch_id: str = None) -> Dict[str, Any]:
+    async def classify_batch(self, payloads: List[Dict[str, Any]],
+                           batch_id: str = None,
+                           api_key: str = None) -> Dict[str, Any]:
         """Classify a batch of requests."""
         try:
-            if not self.client:
+            if not self._client_for(api_key):
                 return {
                     'success': False,
                     'error': 'OpenAI client not initialized',
                     'provider_status': ProviderStatus.ERROR.value
                 }
-            
+
             results = []
             successful = 0
             failed = 0
-            
+
             # Process requests in parallel with rate limiting
             semaphore = asyncio.Semaphore(5)  # Limit concurrent requests
-            
+
             async def process_single(payload, index):
                 async with semaphore:
                     request_id = f"{batch_id}_{index}" if batch_id else f"batch_{index}"
-                    return await self.classify_single(payload, request_id)
+                    return await self.classify_single(payload, request_id, api_key=api_key)
             
             # Create tasks for all payloads
             tasks = [process_single(payload, i) for i, payload in enumerate(payloads)]
@@ -186,14 +203,16 @@ class OpenAIProvider:
 
         return normalized
 
-    async def _make_request_with_retry(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+    async def _make_request_with_retry(self, payload: Dict[str, Any],
+                                       client=None) -> Dict[str, Any]:
         """Make API request with exponential backoff retry."""
         last_error = None
         payload = self._normalize_payload(payload)
+        client = client or self.client
 
         for attempt in range(self.max_retries):
             try:
-                response = await self.client.chat.completions.create(**payload)
+                response = await client.chat.completions.create(**payload)
                 
                 return {
                     'success': True,
@@ -281,23 +300,24 @@ class OpenAIProvider:
                 'format': 'error'
             }
     
-    async def test_connection(self) -> Dict[str, Any]:
+    async def test_connection(self, api_key: str = None) -> Dict[str, Any]:
         """Test OpenAI API connection."""
         try:
-            if not self.client:
+            client = self._client_for(api_key)
+            if not client:
                 return {
                     'success': False,
                     'error': 'Client not initialized'
                 }
-            
-            # Make a simple test request
-            test_payload = {
+
+            # Make a simple test request (normalized for the configured model)
+            test_payload = self._normalize_payload({
                 'model': self.default_model,
                 'messages': [{'role': 'user', 'content': 'Hello'}],
                 'max_tokens': 5
-            }
-            
-            response = await self.client.chat.completions.create(**test_payload)
+            })
+
+            response = await client.chat.completions.create(**test_payload)
             
             logger.info("OpenAI connection test successful")
             

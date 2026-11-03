@@ -92,7 +92,7 @@ function App() {
   const [discoveryResults, setDiscoveryResults] = useState<any>(null)
   const [recommendations, setRecommendations] = useState<any>(null)
   const [executionResults, setExecutionResults] = useState<any>(null)
-  const [apiKey, setApiKey] = useState<string>('')
+  const [apiKey] = useState<string>('')
   const [exportData, setExportData] = useState<any>(null)
   const [projectStateLoaded, setProjectStateLoaded] = useState<boolean>(false)
   const [fileUploadedThisSession, setFileUploadedThisSession] = useState<boolean>(false)
@@ -129,8 +129,15 @@ function App() {
           setClassificationMode(state.classificationMode || 'defined')
           setTokenEstimate(state.tokenEstimate || null)
           setSelectedSample(state.selectedSample || null)
-          // Always land on Upload after refresh — restored state keeps the
-          // later tabs enabled so the user can click forward.
+          if (state.expectations) setExpectations(state.expectations)
+          if (state.previewResults) setPreviewResults(state.previewResults)
+          if (state.analysisResults) setAnalysisResults(state.analysisResults)
+          if (state.discoveryResults) setDiscoveryResults(state.discoveryResults)
+          if (state.recommendations) setRecommendations(state.recommendations)
+          if (state.executionResults) setExecutionResults(state.executionResults)
+          if (state.exportData) setExportData(state.exportData)
+          // Return to the step the user was on rather than always Upload.
+          if (state.activeTab) setActiveTab(state.activeTab)
         }
       })
       .catch(() => {})
@@ -158,14 +165,24 @@ function App() {
           selectedExperimentConfig,
           classificationMode,
           tokenEstimate,
-          selectedSample
+          selectedSample,
+          activeTab,
+          expectations,
+          previewResults,
+          analysisResults,
+          discoveryResults,
+          recommendations,
+          executionResults,
+          exportData
         }
       })
     }).catch(() => {})
   }, [projectStateLoaded, uploadedFile, fieldMapping, workloadSelection,
       totalEligible, eligibilityInfo, rowIndex, mappingValid, workloadValid,
       selectedCategorySet, selectedExperimentConfig, classificationMode,
-      tokenEstimate, selectedSample])
+      tokenEstimate, selectedSample, activeTab, expectations, previewResults,
+      analysisResults, discoveryResults, recommendations, executionResults,
+      exportData])
 
   const handleFileUpload = (fileData: any) => {
     setUploadedFile(fileData)
@@ -486,10 +503,13 @@ function App() {
           
           {activeTab === 'execution' && recommendations && (
             <div>
-              <ClassificationExecutor 
-                datasetRecords={uploadedFile?.parse_result?.data || []}
+              <ClassificationExecutor
+                fileId={uploadedFile?.file_id}
+                fieldMapping={fieldMapping}
+                useColumnIds={rowIndex?.mode !== 'generated'}
+                workloadSelection={workloadSelection}
                 experimentConfig={selectedExperimentConfig}
-                categorySet={discoveryResults}
+                categorySet={selectedCategorySet || discoveryResults}
                 apiKey={apiKey}
                 estimatedCost={tokenEstimate?.workloadCost?.total_cost || 0}
                 onExecutionComplete={setExecutionResults}

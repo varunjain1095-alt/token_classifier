@@ -1,6 +1,8 @@
 """Session management for anonymous and signed-in users."""
+import json
 import secrets
 import time
+from pathlib import Path
 from typing import Optional, Dict, Any
 from enum import Enum
 
@@ -65,6 +67,34 @@ class SessionManager:
         self.memory_sessions = {}
         self.session_timeout = self.settings.session_timeout
         self.permanent_session_lifetime = self.settings.permanent_session_lifetime
+        self.storage_dir = Path('tmp/sessions')
+
+    def _persist(self, session_data: SessionData) -> None:
+        """Write a session to disk so a backend restart does not log the
+        user out or lose their wizard progress. Only used in the in-memory
+        fallback mode — Redis handles durability itself."""
+        try:
+            self.storage_dir.mkdir(parents=True, exist_ok=True)
+            (self.storage_dir / f"{session_data.session_id}.json").write_text(
+                session_data.json(), encoding='utf-8')
+        except Exception as e:
+            logger.warning("Failed to persist session",
+                           session_id=session_data.session_id, error=str(e))
+
+    def _load_from_disk(self, session_id: str) -> Optional[SessionData]:
+        """Restore a session checkpoint written by _persist."""
+        path = self.storage_dir / f"{session_id}.json"
+        if not path.exists():
+            return None
+        try:
+            session_data = SessionData.parse_raw(path.read_text(encoding='utf-8'))
+            self.memory_sessions[session_id] = session_data
+            logger.info("Session restored from disk", session_id=session_id)
+            return session_data
+        except Exception as e:
+            logger.warning("Failed to load session checkpoint",
+                           session_id=session_id, error=str(e))
+            return None
     
     def create_anonymous_session(self, request: Request) -> str:
         """Create a new anonymous session."""
@@ -88,7 +118,8 @@ class SessionManager:
         else:
             # Store in memory
             self.memory_sessions[session_id] = session_data
-        
+            self._persist(session_data)
+
         logger.info("Anonymous session created", session_id=session_id)
         return session_id
     
@@ -105,9 +136,10 @@ class SessionManager:
             if session_json:
                 session_data = SessionData.parse_raw(session_json)
         else:
-            # Get from memory
-            session_data = self.memory_sessions.get(session_id)
-        
+            # Get from memory, restoring the on-disk checkpoint after a restart
+            session_data = (self.memory_sessions.get(session_id)
+                            or self._load_from_disk(session_id))
+
         if not session_data:
             return None
         
@@ -148,15 +180,17 @@ class SessionManager:
             )
         else:
             self.memory_sessions[session_id] = session_data
+            self._persist(session_data)
         return True
-    
+
     def delete_session(self, session_id: str):
         """Delete session."""
         if self.use_redis:
             self.redis_client.delete(f"session:{session_id}")
         else:
             self.memory_sessions.pop(session_id, None)
-        
+            (self.storage_dir / f"{session_id}.json").unlink(missing_ok=True)
+
         logger.info("Session deleted", session_id=session_id)
     
     def get_session_count(self) -> int:

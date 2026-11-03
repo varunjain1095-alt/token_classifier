@@ -173,20 +173,31 @@ class FieldMapping:
         
         return False
     
-    def validate_mapping(self, mapping: Dict[str, FieldType], headers: List[str]) -> Dict[str, Any]:
-        """Validate field mapping."""
+    def validate_mapping(self, mapping: Dict[str, Any], headers: List[str]) -> Dict[str, Any]:
+        """Validate field mapping. Accepts FieldType members or plain strings."""
         errors = []
         warnings = []
-        
+
+        # Normalize values to FieldType members (frontend sends strings)
+        normalized = {}
+        for header, value in mapping.items():
+            if isinstance(value, FieldType):
+                normalized[header] = value
+            else:
+                try:
+                    normalized[header] = FieldType(str(value))
+                except ValueError:
+                    normalized[header] = FieldType.OTHER
+
         # Check required fields
-        mapped_types = set(mapping.values())
+        mapped_types = set(normalized.values())
         for required_field in self.required_fields:
             if required_field not in mapped_types:
                 errors.append(f"Required field '{required_field.value}' is not mapped")
-        
+
         # Check for duplicate mappings
         for field_type in FieldType:
-            mapped_headers = [h for h, t in mapping.items() if t == field_type]
+            mapped_headers = [h for h, t in normalized.items() if t == field_type]
             if len(mapped_headers) > 1:
                 warnings.append(f"Multiple headers mapped to '{field_type.value}': {', '.join(mapped_headers)}")
         
@@ -199,7 +210,7 @@ class FieldMapping:
             'valid': len(errors) == 0,
             'errors': errors,
             'warnings': warnings,
-            'mapped_fields': len([k for k, v in mapping.items() if v != FieldType.OTHER]),
+            'mapped_fields': len([k for k, v in normalized.items() if v != FieldType.OTHER]),
             'unmapped_fields': len(unmapped_headers)
         }
     

@@ -41,7 +41,7 @@ const ExportManager: React.FC<ExportManagerProps> = ({ executionResults, onExpor
 
   const loadExports = async () => {
     try {
-      const response = await fetch('/api/export/list')
+      const response = await fetch('/api/export/list', { credentials: 'include' })
       const data = await response.json()
       if (data.success) {
         setExports(data.exports || [])
@@ -53,7 +53,7 @@ const ExportManager: React.FC<ExportManagerProps> = ({ executionResults, onExpor
 
   const loadStatistics = async () => {
     try {
-      const response = await fetch('/api/export/statistics')
+      const response = await fetch('/api/export/statistics', { credentials: 'include' })
       const data = await response.json()
       if (data.success) {
         setStatistics(data.statistics)
@@ -73,6 +73,7 @@ const ExportManager: React.FC<ExportManagerProps> = ({ executionResults, onExpor
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({
           execution_id: executionResults?.execution_id,
           export_type: selectedType,
@@ -96,20 +97,24 @@ const ExportManager: React.FC<ExportManagerProps> = ({ executionResults, onExpor
     }
   }
 
-  const downloadExport = async (exportId: string) => {
+  const downloadExport = async (exportItem: Export) => {
     try {
-      const response = await fetch(`/api/export/download/${exportId}`)
-      if (response.ok) {
-        const blob = await response.blob()
-        const url = window.URL.createObjectURL(blob)
-        const a = document.createElement('a')
-        a.href = url
-        a.download = `export_${exportId}.${selectedFormat}`
-        document.body.appendChild(a)
-        a.click()
-        window.URL.revokeObjectURL(url)
-        document.body.removeChild(a)
+      const response = await fetch(`/api/export/download/${exportItem.id}`,
+        { credentials: 'include' })
+      if (!response.ok) {
+        setError(`Export download failed (${response.status})`)
+        return
       }
+      const ext = exportItem.export_format === 'excel' ? 'xlsx' : exportItem.export_format
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `export_${exportItem.id.slice(0, 8)}.${ext}`
+      document.body.appendChild(a)
+      a.click()
+      window.URL.revokeObjectURL(url)
+      document.body.removeChild(a)
     } catch (error) {
       console.error('Failed to download export:', error)
     }
@@ -118,7 +123,8 @@ const ExportManager: React.FC<ExportManagerProps> = ({ executionResults, onExpor
   const deleteExport = async (exportId: string) => {
     try {
       const response = await fetch(`/api/export/${exportId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        credentials: 'include'
       })
       const data = await response.json()
       if (data.success) {
@@ -167,9 +173,8 @@ const ExportManager: React.FC<ExportManagerProps> = ({ executionResults, onExpor
 
   const exportFormats = [
     { value: 'csv', label: 'CSV', description: 'Comma-separated values' },
-    { value: 'json', label: 'JSON', description: 'JavaScript Object Notation' },
-    { value: 'excel', label: 'Excel', description: 'Microsoft Excel format' },
-    { value: 'pdf', label: 'PDF', description: 'Portable Document Format' }
+    { value: 'xlsx', label: 'Excel', description: 'Microsoft Excel workbook' },
+    { value: 'json', label: 'JSON', description: 'JavaScript Object Notation' }
   ]
 
   return (
@@ -392,7 +397,7 @@ const ExportManager: React.FC<ExportManagerProps> = ({ executionResults, onExpor
                     <td style={{ padding: '12px', textAlign: 'center' }}>
                       {exportItem.status === 'completed' && (
                         <button
-                          onClick={() => downloadExport(exportItem.id)}
+                          onClick={() => downloadExport(exportItem)}
                           style={{
                             padding: '4px 8px',
                             backgroundColor: 'var(--info)',

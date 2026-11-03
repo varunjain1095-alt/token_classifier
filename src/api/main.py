@@ -1385,6 +1385,7 @@ async def execute_preview(request: Request, preview_data: dict):
             'preview_id': result['preview_id'],
             'status': result.get('status'),
             'taxonomy': result['results'].get('taxonomy'),
+            'unassigned_guidance_themes': result['results'].get('unassigned_guidance_themes'),
             'run_fingerprint': result['results'].get('run_fingerprint'),
             'diagnostics': result['results'].get('diagnostics'),
             'stability': result['results'].get('stability'),
@@ -1496,17 +1497,15 @@ async def test_openai_connection(request: Request, test_data: dict):
             raise HTTPException(status_code=401, detail="No session found")
         
         api_key = test_data.get('api_key')
-        
-        # Initialize client with provided key or default
-        if api_key:
-            if not openai_provider.initialize_client(api_key):
-                raise HTTPException(status_code=400, detail="Failed to initialize OpenAI client")
-        elif not openai_provider.client:
+
+        # A user-supplied key is tested on a dedicated client; otherwise use
+        # (or lazily create) the shared env-key client.
+        if not api_key and not openai_provider.client:
             if not openai_provider.initialize_client():
                 raise HTTPException(status_code=500, detail="OpenAI client not initialized")
-        
+
         # Test connection
-        result = await openai_provider.test_connection()
+        result = await openai_provider.test_connection(api_key)
         
         return {
             'success': result['success'],
@@ -1849,19 +1848,30 @@ async def create_export(request: Request, export_data: dict):
         
         if not execution_id:
             raise HTTPException(status_code=400, detail="Execution ID required")
-        
+
+        # Fetch the real execution results up front so a bad id fails here
+        # and the file can be generated immediately (no 'processing' limbo).
+        execution_data = classification_executor.get_execution_results(execution_id)
+        if 'error' in execution_data:
+            raise HTTPException(status_code=404, detail=execution_data['error'])
+
         # Create export
         result = export_manager.create_export(
             user_id, execution_id, export_type, export_format, filters, include_metadata
         )
-        
+
         if not result['success']:
             raise HTTPException(status_code=400, detail=result['error'])
-        
+
+        # Generate the file right away so it is ready to download immediately
+        gen = export_manager.generate_export_file(result['export_id'], execution_data)
+        if not gen['success']:
+            raise HTTPException(status_code=400, detail=gen['error'])
+
         return {
             'success': True,
             'export_id': result['export_id'],
-            'export': result['export']
+            'export': export_manager.get_export(result['export_id'])
         }
         
     except HTTPException:
@@ -1884,43 +1894,44 @@ async def download_export(export_id: str, request: Request):
         export = export_manager.get_export(export_id)
         if not export:
             raise HTTPException(status_code=404, detail="Export not found")
-        
-        # Get execution data for export generation
-        # This is simplified - in a real implementation, you'd fetch from database
-        execution_data = {
-            'results': export.get('results', []),
-            'errors': export.get('errors', []),
-            'summary': export.get('summary', {}),
-            'final_analysis': export.get('final_analysis', {})
-        }
-        
-        # Generate file
-        result = export_manager.generate_export_file(export_id, execution_data)
-        
-        if not result['success']:
-            raise HTTPException(status_code=400, detail=result['error'])
-        
-        # Return file content
-        from fastapi.responses import Response
-        
-        content = result['file_content']
-        filename = result['filename']
-        
-        # Determine content type
+
+        from fastapi.responses import Response, FileResponse
+        from pathlib import Path
+
         content_type_map = {
             'csv': 'text/csv',
             'json': 'application/json',
+            'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'excel': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'pdf': 'application/pdf'
         }
-        
         content_type = content_type_map.get(export['export_format'], 'application/octet-stream')
-        
+
+        # Serve the generated file if it was persisted at create/generate time
+        file_path = export.get('file_path')
+        if file_path and Path(file_path).exists():
+            return FileResponse(
+                file_path,
+                filename=Path(file_path).name,
+                media_type=content_type)
+
+        # Otherwise regenerate from the execution results
+        execution_data = classification_executor.get_execution_results(
+            export['execution_id'])
+        if 'error' in execution_data:
+            raise HTTPException(status_code=404, detail=execution_data['error'])
+
+        result = export_manager.generate_export_file(export_id, execution_data)
+
+        if not result['success']:
+            raise HTTPException(status_code=400, detail=result['error'])
+
         return Response(
-            content=content,
+            content=result['file_bytes'] if result.get('file_bytes') is not None
+                     else result['file_content'],
             media_type=content_type,
             headers={
-                'Content-Disposition': f'attachment; filename="{filename}"'
+                'Content-Disposition': f'attachment; filename="{result["filename"]}"'
             }
         )
         
@@ -2045,18 +2056,50 @@ async def start_execution(request: Request, execution_data: dict):
         
         session_data = session_manager.validate_session(session_id, request)
         user_id = session_data.user_id or session_data.session_id
-        
-        dataset_records = execution_data.get('dataset_records', [])
+
         experiment_config = execution_data.get('experiment_config', {})
         category_set = execution_data.get('category_set', {})
-        api_key = execution_data.get('api_key', '')
+        api_key = execution_data.get('api_key') or None
         estimated_cost = execution_data.get('estimated_cost', 0.0)
-        
+
+        file_id = execution_data.get('file_id')
+        field_mapping = execution_data.get('field_mapping', {})
+        use_column_ids = execution_data.get('use_column_ids', True)
+        workload_selection = execution_data.get('workload_selection') or {}
+
+        if file_id:
+            # Build the dataset from the stored snapshot and resolve the
+            # workload selection the same way /api/workload/select does.
+            try:
+                headers, data_rows, _ = load_stored_rows(file_id)
+            except FileNotFoundError:
+                raise HTTPException(status_code=404, detail="Uploaded file not found")
+
+            dataset = build_dataset_records(
+                headers, data_rows, field_mapping, use_column_ids=use_column_ids
+            )
+
+            mode = workload_selection.get('mode', 'all_eligible')
+            params = {
+                'count': workload_selection.get('count'),
+                'row_ids': workload_selection.get('specificRows') or workload_selection.get('row_ids'),
+                'seed': workload_selection.get('seed'),
+            }
+            try:
+                mode_enum = WorkloadMode(mode)
+            except ValueError:
+                raise HTTPException(status_code=400, detail=f"Invalid workload mode: {mode}")
+
+            selection = workload_selector.select_workload(
+                dataset['records'], mode_enum, params)
+            if not selection['success']:
+                raise HTTPException(status_code=400, detail=selection['error'])
+            dataset_records = selection['selected_records']
+        else:
+            dataset_records = execution_data.get('dataset_records', [])
+
         if not dataset_records:
             raise HTTPException(status_code=400, detail="No dataset records provided")
-        
-        if not api_key:
-            raise HTTPException(status_code=400, detail="API key required")
         
         # Start execution
         result = await classification_executor.start_execution(
@@ -2141,10 +2184,13 @@ async def resume_execution(execution_id: str, request: Request):
             raise HTTPException(status_code=401, detail="No session found")
         
         result = classification_executor.resume_execution(execution_id)
-        
+
         if 'error' in result:
             raise HTTPException(status_code=400, detail=result['error'])
-        
+
+        # Relaunch the batch loop — it resumes from the first unprocessed record
+        asyncio.create_task(classification_executor.execute_classification(execution_id))
+
         return result
         
     except HTTPException:

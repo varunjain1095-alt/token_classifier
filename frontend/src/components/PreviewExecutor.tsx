@@ -56,6 +56,7 @@ const PreviewExecutor: React.FC<PreviewExecutorProps> = ({
   const [stability, setStability] = useState<any>(null)
   const [consistency, setConsistency] = useState<any[]>([])
   const [diagnosticUsage, setDiagnosticUsage] = useState<any>(null)
+  const [unassignedThemes, setUnassignedThemes] = useState<string[]>([])
 
   useEffect(() => {
     checkQuota()
@@ -132,6 +133,7 @@ const PreviewExecutor: React.FC<PreviewExecutorProps> = ({
         setStability(data.stability || null)
         setConsistency(data.consistency || [])
         setDiagnosticUsage(data.diagnostic_usage || null)
+        setUnassignedThemes(data.unassigned_guidance_themes || [])
 
         // Get analysis
         const analysisResponse = await fetch(`/api/preview/analysis/${data.preview_id}`)
@@ -304,6 +306,16 @@ const PreviewExecutor: React.FC<PreviewExecutorProps> = ({
               </span>
             ))}
           </div>
+          {taxonomy.sample_mismatch && (
+            <div style={{ marginTop: '8px', color: 'var(--warning)', fontSize: '12px' }}>
+              ⚠ {taxonomy.sample_mismatch.message} ({Math.round((taxonomy.sample_mismatch.overlap_ratio || 0) * 100)}% sample overlap) — consider Regenerate Taxonomy.
+            </div>
+          )}
+          {unassignedThemes.length > 0 && (
+            <div style={{ marginTop: '6px', color: 'var(--warning)', fontSize: '12px' }}>
+              ⚠ Suggested themes never assigned to any record: {unassignedThemes.join(', ')} — your theme guidance may not match this data.
+            </div>
+          )}
         </div>
       )}
 

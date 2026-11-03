@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
 interface Execution {
-  id: string
+  id?: string
+  execution_id?: string
   created_at: string
   status: 'pending' | 'running' | 'paused' | 'completed' | 'failed' | 'cancelled'
   total_records: number
@@ -20,30 +21,48 @@ interface Execution {
 }
 
 interface ClassificationExecutorProps {
-  datasetRecords: any[]
+  fileId?: string
+  fieldMapping: { [key: string]: string }
+  useColumnIds: boolean
+  workloadSelection: {
+    mode: string
+    count: number
+    specificRows: string[]
+    seed: number
+    totalEligible: number
+  } | null
   experimentConfig: any
   categorySet: any
-  apiKey: string
+  apiKey?: string
   estimatedCost: number
   onExecutionComplete: (execution: any) => void
 }
 
-const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({ 
-  datasetRecords, 
-  experimentConfig, 
-  categorySet, 
-  apiKey, 
-  estimatedCost, 
-  onExecutionComplete 
+const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
+  fileId,
+  fieldMapping,
+  useColumnIds,
+  workloadSelection,
+  experimentConfig,
+  categorySet,
+  apiKey,
+  estimatedCost,
+  onExecutionComplete
 }) => {
   const [execution, setExecution] = useState<Execution | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
   const [autoRefresh, setAutoRefresh] = useState<boolean>(false)
+  const [customKey, setCustomKey] = useState<string>('')
+
+  const execId = execution ? (execution.execution_id || execution.id) : undefined
+  const recordCount = workloadSelection?.count || workloadSelection?.totalEligible || 0
+  const effectiveKey = apiKey || customKey || undefined
+  const isActive = (s?: string) => s === 'pending' || s === 'running'
 
   useEffect(() => {
-    let interval: NodeJS.Timeout
-    if (autoRefresh && execution && execution.status === 'running') {
+    let interval: ReturnType<typeof setInterval>
+    if (autoRefresh && execution && isActive(execution.status)) {
       interval = setInterval(() => {
         refreshExecutionStatus()
       }, 2000) // Refresh every 2 seconds
@@ -54,31 +73,42 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
   }, [autoRefresh, execution])
 
   const startExecution = async () => {
+    if (!fileId) {
+      setError('No uploaded dataset — upload a file before running a full execution')
+      return
+    }
     setLoading(true)
     setError(null)
-    
+
     try {
       const response = await fetch('/api/execution/start', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({
-          dataset_records: datasetRecords,
+          file_id: fileId,
+          field_mapping: fieldMapping,
+          use_column_ids: useColumnIds,
+          workload_selection: workloadSelection,
           experiment_config: experimentConfig,
           category_set: categorySet,
-          api_key: apiKey,
+          api_key: effectiveKey,
           estimated_cost: estimatedCost
         }),
       })
-      
+
       const data = await response.json()
       if (data.success) {
         setExecution(data.execution)
         setAutoRefresh(true)
-        onExecutionComplete(data.execution)
+        onExecutionComplete({
+          ...data.execution,
+          execution_id: data.execution.id || data.execution.execution_id
+        })
       } else {
-        setError(data.error || 'Failed to start execution')
+        setError(data.error || data.detail || 'Failed to start execution')
       }
     } catch (error) {
       setError('Execution start failed: ' + error)
@@ -88,17 +118,20 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
   }
 
   const refreshExecutionStatus = async () => {
-    if (!execution) return
-    
+    if (!execId) return
+
     try {
-      const response = await fetch(`/api/execution/status/${execution.id}`)
+      const response = await fetch(`/api/execution/status/${execId}`, {
+        credentials: 'include'
+      })
       const data = await response.json()
-      
+
       if (data.success) {
         setExecution(data.execution)
-        
-        // Stop auto-refresh if execution is complete
-        if (data.execution.status !== 'running') {
+        onExecutionComplete(data.execution)
+
+        // Stop auto-refresh once the run reaches a terminal state
+        if (!isActive(data.execution.status)) {
           setAutoRefresh(false)
         }
       }
@@ -108,11 +141,12 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
   }
 
   const pauseExecution = async () => {
-    if (!execution) return
-    
+    if (!execId) return
+
     try {
-      const response = await fetch(`/api/execution/pause/${execution.id}`, {
-        method: 'POST'
+      const response = await fetch(`/api/execution/pause/${execId}`, {
+        method: 'POST',
+        credentials: 'include'
       })
       const data = await response.json()
       
@@ -126,11 +160,12 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
   }
 
   const resumeExecution = async () => {
-    if (!execution) return
-    
+    if (!execId) return
+
     try {
-      const response = await fetch(`/api/execution/resume/${execution.id}`, {
-        method: 'POST'
+      const response = await fetch(`/api/execution/resume/${execId}`, {
+        method: 'POST',
+        credentials: 'include'
       })
       const data = await response.json()
       
@@ -144,11 +179,12 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
   }
 
   const cancelExecution = async () => {
-    if (!execution) return
-    
+    if (!execId) return
+
     try {
-      const response = await fetch(`/api/execution/cancel/${execution.id}`, {
-        method: 'POST'
+      const response = await fetch(`/api/execution/cancel/${execId}`, {
+        method: 'POST',
+        credentials: 'include'
       })
       const data = await response.json()
       
@@ -216,14 +252,33 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
           border: '1px solid var(--border)'
         }}>
           <div style={{ fontSize: '18px', marginBottom: '20px' }}>
-            🚀 Ready to Process {datasetRecords.length.toLocaleString()} Records
+            🚀 Ready to Process {recordCount.toLocaleString()} Records
           </div>
-          
+
           <div style={{ marginBottom: '20px', fontSize: '14px', color: 'var(--text-2)' }}>
             <div>Estimated Cost: ${estimatedCost.toFixed(6)}</div>
             <div>Model: {experimentConfig?.config?.model || 'configured preview model'}</div>
-            <div>Categories: {categorySet?.categories?.length || 0}</div>
+            <div>Categories: {(categorySet?.categories || categorySet?.discovered_categories || categorySet?.discovery?.discovered_categories || []).length}</div>
           </div>
+
+          {!apiKey && (
+            <div style={{ marginBottom: '20px' }}>
+              <input
+                type="password"
+                placeholder="OpenAI API key (optional — server key used if blank)"
+                value={customKey}
+                onChange={(e) => setCustomKey(e.target.value)}
+                style={{
+                  padding: '10px',
+                  width: '60%',
+                  border: '1px solid var(--border)',
+                  borderRadius: 'var(--radius-sm)',
+                  backgroundColor: 'var(--surface)',
+                  color: 'var(--text)'
+                }}
+              />
+            </div>
+          )}
           
           <button
             onClick={startExecution}
@@ -265,7 +320,7 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
                   {execution.status.charAt(0).toUpperCase() + execution.status.slice(1)}
                 </div>
                 <div style={{ fontSize: '12px', color: 'var(--text-2)' }}>
-                  Execution ID: {execution.id.slice(0, 8)}...
+                  Execution ID: {execId ? execId.slice(0, 8) + '...' : 'unknown'}
                 </div>
               </div>
             </div>
@@ -334,19 +389,9 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
               )}
               
               {execution.status === 'completed' && (
-                <button
-                  onClick={() => window.open(`/api/execution/results/${execution.id}`, '_blank')}
-                  style={{
-                    padding: '8px 16px',
-                    backgroundColor: 'var(--info)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: 'var(--radius-sm)',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Download Results
-                </button>
+                <div style={{ fontSize: '13px', color: 'var(--text-2)' }}>
+                  Completed — export results on the Export step →
+                </div>
               )}
             </div>
           </div>

@@ -3,6 +3,7 @@ import uuid
 import json
 import csv
 import io
+from pathlib import Path
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 from enum import Enum
@@ -32,9 +33,37 @@ class ExportManager:
     """Manages export and reporting functionality."""
     
     def __init__(self):
-        self.exports = {}  # In-memory storage for now
-        self.supported_formats = ['csv', 'json', 'excel', 'pdf']
+        self.exports = {}  # Hot in-memory view; export metadata + files on disk
+        self.storage_dir = Path('tmp/exports')
+        self.supported_formats = ['csv', 'json', 'xlsx', 'excel', 'pdf']
         self.supported_types = ['results_only', 'full_report', 'summary', 'raw_data']
+
+    def _persist(self, export: Dict[str, Any]) -> None:
+        """Write export metadata to disk so history survives a restart."""
+        try:
+            self.storage_dir.mkdir(parents=True, exist_ok=True)
+            (self.storage_dir / f"{export['id']}.meta.json").write_text(
+                json.dumps(export, default=str), encoding='utf-8')
+        except Exception as e:
+            logger.warning("Failed to persist export",
+                           export_id=export.get('id'), error=str(e))
+
+    def _load(self, export_id: str) -> Optional[Dict[str, Any]]:
+        """Return an export from memory, or restore its metadata from disk."""
+        export = self.exports.get(export_id)
+        if export:
+            return export
+        path = self.storage_dir / f"{export_id}.meta.json"
+        if not path.exists():
+            return None
+        try:
+            export = json.loads(path.read_text(encoding='utf-8'))
+            self.exports[export_id] = export
+            return export
+        except Exception as e:
+            logger.warning("Failed to load export checkpoint",
+                           export_id=export_id, error=str(e))
+            return None
     
     def create_export(self, user_id: str, execution_id: str, 
                      export_type: str, export_format: str,
@@ -74,8 +103,9 @@ class ExportManager:
             }
             
             self.exports[export_id] = export
-            
-            logger.info("Export created", 
+            self._persist(export)
+
+            logger.info("Export created",
                        export_id=export_id,
                        execution_id=execution_id,
                        export_type=export_type,
@@ -105,31 +135,50 @@ class ExportManager:
                 }
             
             export['status'] = 'generating'
-            
+
             # Extract data based on export type
             export_data = self._extract_export_data(export, execution_data)
-            
-            # Generate file based on format
-            file_content = self._generate_file_content(export, export_data)
-            
+
+            # Generate file based on format (binary for xlsx, text otherwise)
+            file_bytes = None
+            file_content = None
+            if self._is_excel(export['export_format']):
+                file_bytes = self._generate_xlsx_content(export_data)
+            else:
+                file_content = self._generate_file_content(export, export_data)
+
+            # Persist the generated file so downloads survive restarts
+            filename = self._generate_filename(export)
+            self.storage_dir.mkdir(parents=True, exist_ok=True)
+            path = self.storage_dir / filename
+            if file_bytes is not None:
+                path.write_bytes(file_bytes)
+                file_size = len(file_bytes)
+            else:
+                path.write_text(file_content, encoding='utf-8')
+                file_size = len(file_content.encode('utf-8'))
+
             # Update export record
             export['status'] = 'completed'
             export['completed_at'] = datetime.utcnow().isoformat()
             export['record_count'] = len(export_data.get('records', []))
-            export['file_size'] = len(file_content.encode('utf-8'))
-            
-            logger.info("Export file generated", 
+            export['file_size'] = file_size
+            export['file_path'] = str(path)
+            self._persist(export)
+
+            logger.info("Export file generated",
                        export_id=export_id,
                        file_size=export['file_size'],
                        record_count=export['record_count'])
-            
+
             return {
                 'success': True,
                 'export_id': export_id,
                 'file_content': file_content,
+                'file_bytes': file_bytes,
                 'file_size': export['file_size'],
                 'record_count': export['record_count'],
-                'filename': self._generate_filename(export)
+                'filename': filename
             }
             
         except Exception as e:
@@ -148,15 +197,8 @@ class ExportManager:
         
         if export_type == ExportType.RESULTS_ONLY.value:
             # Just the classification results
-            records = []
-            for result in execution_data.get('results', []):
-                record = {
-                    'record_id': result.get('record_id'),
-                    'classification': result.get('classification'),
-                    'confidence': result.get('confidence'),
-                    'timestamp': result.get('timestamp')
-                }
-                records.append(record)
+            records = [self._flatten_record(r, include_source=False)
+                       for r in execution_data.get('results', [])]
             
             return {
                 'records': records,
@@ -169,19 +211,9 @@ class ExportManager:
             }
         
         elif export_type == ExportType.FULL_REPORT.value:
-            # Complete report with all data
-            records = []
-            for result in execution_data.get('results', []):
-                record = {
-                    'record_id': result.get('record_id'),
-                    'original_text': result.get('record', {}).get('review_text', ''),
-                    'classification': result.get('classification'),
-                    'confidence': result.get('confidence'),
-                    'reasoning': result.get('reasoning', ''),
-                    'timestamp': result.get('timestamp'),
-                    'token_usage': result.get('token_usage', {})
-                }
-                records.append(record)
+            # Complete report: review text + one column per classification field
+            records = [self._flatten_record(r, include_source=True)
+                       for r in execution_data.get('results', [])]
             
             return {
                 'records': records,
@@ -239,26 +271,88 @@ class ExportManager:
                 }
             }
     
+    def _flatten_record(self, result: Dict[str, Any],
+                        include_source: bool = True) -> Dict[str, Any]:
+        """Flatten one execution result into an export row: review text +
+        one column per classification field (no nested JSON blobs)."""
+        source = result.get('record') or {}
+        row = {
+            'record_id': result.get('record_id'),
+            'review_text': (source.get('original_review_text')
+                            or source.get('review_text')
+                            or source.get('text') or ''),
+        }
+        classification = result.get('classification')
+        if isinstance(classification, dict):
+            for key, value in classification.items():
+                row[key] = (', '.join(str(v) for v in value)
+                            if isinstance(value, list) else value)
+        elif classification is not None:
+            row['classification'] = classification
+        if result.get('confidence') is not None and 'confidence' not in row:
+            row['confidence'] = result['confidence']
+        if result.get('reasoning') and 'reasoning' not in row:
+            row['reasoning'] = result['reasoning']
+        row['timestamp'] = result.get('timestamp')
+        if include_source:
+            for key, value in (source.get('mapped_metadata') or {}).items():
+                if key not in row:
+                    row[key] = value
+        return row
+
+    def _is_excel(self, export_format: str) -> bool:
+        return export_format in (ExportFormat.EXCEL.value, 'xlsx')
+
+    def _extension(self, export_format: str) -> str:
+        return 'xlsx' if self._is_excel(export_format) else export_format
+
     def _generate_file_content(self, export: Dict[str, Any], export_data: Dict[str, Any]) -> str:
         """Generate file content based on format."""
         export_format = export['export_format']
-        
+
         if export_format == ExportFormat.CSV.value:
             return self._generate_csv_content(export_data)
-        
-        elif export_format == ExportFormat.JSON.value:
+
+        elif export_format == ExportFormat.JSON.value or \
+                export_format == ExportFormat.PDF.value:
+            # PDF support would need reportlab; JSON is the fallback
             return self._generate_json_content(export_data)
-        
-        elif export_format == ExportFormat.EXCEL.value:
-            # For now, return CSV format (Excel support would need openpyxl)
-            return self._generate_csv_content(export_data)
-        
-        elif export_format == ExportFormat.PDF.value:
-            # For now, return JSON format (PDF support would need reportlab)
-            return self._generate_json_content(export_data)
-        
+
         else:
             raise ValueError(f"Unsupported export format: {export_format}")
+
+    def _generate_xlsx_content(self, export_data: Dict[str, Any]) -> bytes:
+        """Generate a real Excel workbook from the flattened records."""
+        from openpyxl import Workbook
+
+        wb = Workbook()
+        ws = wb.active
+        ws.title = 'Classifications'
+
+        records = export_data.get('records', [])
+        headers: List[str] = []
+        for record in records:
+            for key in record.keys():
+                if key not in headers:
+                    headers.append(key)
+        if headers:
+            ws.append(headers)
+            for record in records:
+                ws.append([
+                    json.dumps(v, default=str)
+                    if isinstance(v, (dict, list)) else v
+                    for v in (record.get(k) for k in headers)
+                ])
+        # Reasonable column widths so the file opens readable
+        for i, header in enumerate(headers, start=1):
+            max_len = max([len(str(header))] + [
+                min(len(str(r.get(header, '') or '')), 80) for r in records])
+            ws.column_dimensions[ws.cell(row=1, column=i).column_letter] \
+                .width = min(max_len + 2, 82)
+
+        buf = io.BytesIO()
+        wb.save(buf)
+        return buf.getvalue()
     
     def _generate_csv_content(self, export_data: Dict[str, Any]) -> str:
         """Generate CSV content."""
@@ -297,14 +391,22 @@ class ExportManager:
     def _generate_filename(self, export: Dict[str, Any]) -> str:
         """Generate filename for export."""
         timestamp = datetime.utcnow().strftime('%Y%m%d_%H%M%S')
-        return f"classification_export_{export['export_type']}_{export['export_format']}_{timestamp}.{export['export_format']}"
-    
+        ext = self._extension(export['export_format'])
+        return f"classification_export_{export['export_type']}_{ext}_{timestamp}.{ext}"
+
     def get_export(self, export_id: str) -> Optional[Dict[str, Any]]:
         """Get export by ID."""
-        return self.exports.get(export_id)
-    
+        return self._load(export_id)
+
     def get_user_exports(self, user_id: str) -> List[Dict[str, Any]]:
         """Get all exports for user."""
+        # Restore export metadata written to disk by earlier runs
+        if self.storage_dir.exists():
+            for path in self.storage_dir.glob('*.meta.json'):
+                key = path.name[:-len('.meta.json')]
+                if key not in self.exports:
+                    self._load(key)
+
         user_exports = []
         for export in self.exports.values():
             if export['user_id'] == user_id:

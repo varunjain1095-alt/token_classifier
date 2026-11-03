@@ -42,7 +42,8 @@ def build_run_fingerprint(sample_records: List[Dict[str, Any]],
 
 def assess_record(classification: Any, review_text: str,
                   output_fields: List[str],
-                  taxonomy_labels: List[str]) -> Dict[str, Any]:
+                  taxonomy_labels: List[str],
+                  unmatched_label: str = 'other') -> Dict[str, Any]:
     """Validate one raw classification. Returns flags; never alters the result."""
     flags: List[str] = []
     missing: List[str] = []
@@ -92,11 +93,12 @@ def assess_record(classification: Any, review_text: str,
 
     # Taxonomy conformance (discovery mode only)
     label_in_taxonomy = None
+    unmatched = (unmatched_label or 'other').lower()
     if taxonomy_labels:
         label_in_taxonomy = label in taxonomy_labels
-        if not label_in_taxonomy and str(label).lower() not in ('other', 'none'):
+        if not label_in_taxonomy and str(label).lower() not in (unmatched, 'none'):
             flags.append('label_drift')  # label outside the shared taxonomy
-        if str(label).lower() in ('other', 'none') or state == 'unmatched':
+        if str(label).lower() in (unmatched, 'none') or state == 'unmatched':
             flags.append('taxonomy_gap')  # no theme fit this record
 
     # Category-evidence mismatch: claims matched but evidence cannot support it
@@ -122,6 +124,7 @@ def assess_run(results: List[Dict[str, Any]],
     """Run-level diagnostics: per-record assessments + flag counts."""
     output_fields = config.get('output_fields') or []
     taxonomy_labels = (taxonomy or {}).get('labels') or []
+    unmatched_label = (taxonomy or {}).get('unmatched_label') or 'other'
     texts = {r.get('id'): str(r.get('review_text', '')) for r in sample_records}
 
     per_record: Dict[str, Any] = {}
@@ -132,7 +135,7 @@ def assess_run(results: List[Dict[str, Any]],
             continue
         cls = (r.get('result') or {}).get('classification')
         diag = assess_record(cls, texts.get(rid, ''), output_fields,
-                             taxonomy_labels)
+                             taxonomy_labels, unmatched_label)
         per_record[rid] = diag
         for f in diag['flags']:
             counts[f] = counts.get(f, 0) + 1
