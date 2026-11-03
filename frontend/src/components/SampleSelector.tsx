@@ -64,7 +64,7 @@ const SampleSelector: React.FC<SampleSelectorProps> = ({
     const warnings = []
 
     if (!fileId) {
-      errors.push('No dataset selected — upload a file first')
+      errors.push('No dataset selected. Upload a file first.')
     } else if (availableCount === 0) {
       errors.push('No eligible records available for sampling')
     } else {

@@ -134,7 +134,7 @@ class PricingManager:
                       service_tier: str = 'standard') -> Dict[str, Any]:
         """Calculate cost for token usage on the selected model.
 
-        Context tiers are selected using this request's input token count —
+        Context tiers are selected using this request's input token count,
         never total tokens across the workload. `service_tier` may be
         'standard' or 'batch' (when the record carries a batch price block).
         """
@@ -154,7 +154,7 @@ class PricingManager:
                 }
 
             # Select the per-request price block. Context tier is decided by
-            # this request's input tokens — never workload totals. Batch/flex
+            # this request's input tokens; never workload totals. Batch/flex
             # are refused rather than silently falling back to Standard.
             tiers_meta = pricing.get('service_tiers') or {}
             if service_tier not in self.get_supported_tiers(pricing):

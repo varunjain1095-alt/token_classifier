@@ -28,7 +28,7 @@ const SessionIndicator: React.FC = () => {
         className={`chip ${isAnon ? 'chip-warning' : 'chip-success'}`}
         title={title}
       >
-        {isAnon ? '👤' : '🔐'} {label}
+        {label}
       </span>
       <button
         className="btn btn-danger"

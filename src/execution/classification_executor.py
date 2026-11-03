@@ -222,7 +222,7 @@ class ClassificationExecutor:
                            successful=batch_result['successful'],
                            failed=batch_result['failed'])
 
-                # Checkpoint after every batch — results represent paid API
+                # Checkpoint after every batch; results represent paid API
                 # calls and must survive a restart.
                 self._persist(execution)
 

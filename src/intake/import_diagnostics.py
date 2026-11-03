@@ -11,7 +11,7 @@ class ImportDiagnostics:
     """Generates import diagnostics for file uploads."""
     
     def generate_diagnostics(self, parse_result: Dict[str, Any], file_info: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate comprehensive import diagnostics."""
+        """Generate import diagnostics."""
         diagnostics = {
             'timestamp': datetime.now().isoformat(),
             'file_info': file_info,

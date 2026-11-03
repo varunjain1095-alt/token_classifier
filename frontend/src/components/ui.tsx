@@ -31,6 +31,6 @@ export const ThemeToggle: React.FC<{
     onClick={onToggle}
     title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
   >
-    {theme === 'dark' ? '☀ Light' : '☾ Dark'}
+    {theme === 'dark' ? 'Light' : 'Dark'}
   </button>
 )

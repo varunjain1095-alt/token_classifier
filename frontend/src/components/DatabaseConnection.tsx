@@ -53,14 +53,14 @@ const DatabaseConnection: React.FC<DatabaseConnectionProps> = ({
       const result = await response.json()
 
       if (result.success) {
-        setConnectionStatus('✅ Connection successful!')
+        setConnectionStatus('Connection successful')
         onConnectionSuccess(result)
       } else {
-        setConnectionStatus(`❌ Connection failed: ${result.error}`)
+        setConnectionStatus(`Connection failed: ${result.error}`)
         onConnectionError(result.error)
       }
     } catch (error) {
-      setConnectionStatus(`❌ Connection error: ${error instanceof Error ? error.message : 'Unknown error'}`)
+      setConnectionStatus(`Connection error: ${error instanceof Error ? error.message : 'Unknown error'}`)
       onConnectionError('Connection failed')
     } finally {
       setIsTesting(false)
@@ -82,14 +82,14 @@ const DatabaseConnection: React.FC<DatabaseConnectionProps> = ({
 
       const result = await response.json()
       if (result.success) {
-        setConnectionStatus(`✅ Found ${result.schemas.length} schemas`)
+        setConnectionStatus(`Found ${result.schemas.length} schemas`)
         return result.schemas
       } else {
-        setConnectionStatus(`❌ Failed to get schemas: ${result.error}`)
+        setConnectionStatus(`Failed to get schemas: ${result.error}`)
         return []
       }
     } catch (error) {
-      setConnectionStatus(`❌ Schema error: ${error instanceof Error ? error.message : 'Unknown error'}`)
+      setConnectionStatus(`Schema error: ${error instanceof Error ? error.message : 'Unknown error'}`)
       return []
     }
   }
@@ -233,10 +233,10 @@ const DatabaseConnection: React.FC<DatabaseConnectionProps> = ({
           <div style={{ 
             marginTop: '15px', 
             padding: '10px', 
-            backgroundColor: connectionStatus.includes('✅') ? 'var(--success-soft)' : 'var(--danger-soft)',
-            color: connectionStatus.includes('✅') ? 'var(--success)' : 'var(--danger)',
+            backgroundColor: /successful|Found/.test(connectionStatus) ? 'var(--success-soft)' : 'var(--danger-soft)',
+            color: /successful|Found/.test(connectionStatus) ? 'var(--success)' : 'var(--danger)',
             borderRadius: 'var(--radius-sm)',
-            border: `1px solid ${connectionStatus.includes('✅') ? 'var(--success-soft)' : 'var(--danger-soft)'}`
+            border: `1px solid ${/successful|Found/.test(connectionStatus) ? 'var(--success-soft)' : 'var(--danger-soft)'}`
           }}>
             {connectionStatus}
           </div>

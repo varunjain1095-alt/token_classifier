@@ -1,6 +1,6 @@
 # Review Classification Workbench
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Option 1: Automatic Startup (Recommended)
 ```bash
@@ -25,24 +25,24 @@ cd "C:\Projects\Scraper token review and classification review project\frontend"
 npm run dev
 ```
 
-## 🌐 Access URLs
+## Access URLs
 
 - **Frontend**: http://localhost:3000
 - **Backend**: http://localhost:8020
 - **API Docs**: http://localhost:8020/docs
 
-## 🧪 Testing
+## Testing
 
 Run the test script to verify everything works:
 ```bash
 test.bat
 ```
 
-## 📁 File Upload
+## File Upload
 
 The system accepts CSV, XLSX, and XLS files up to 50MB. Upload through the web interface at http://localhost:3000.
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Port Already in Use
 ```bash
@@ -61,7 +61,7 @@ taskkill /F /IM python.exe
 ### Redis Not Available
 The system automatically falls back to in-memory sessions if Redis is not available.
 
-## 📊 Features
+## Features
 
 - File upload (CSV, Excel)
 - Database connection
@@ -73,7 +73,7 @@ The system automatically falls back to in-memory sessions if Redis is not availa
 - Full dataset processing
 - Export functionality
 
-## 🛠️ Dependencies
+## Dependencies
 
 - Python 3.12+
 - Node.js 18+

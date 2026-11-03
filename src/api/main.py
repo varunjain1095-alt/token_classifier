@@ -845,14 +845,14 @@ async def estimate_token_ranges(request: Request, request_data: dict):
         workload_selection = request_data.get('workload_selection')
 
         # When an experiment config is supplied, construct the same request
-        # the preview executor would send — real system prompt (objective,
-        # taxonomy labels, output schema) plus actual review text — instead
+        # the preview executor would send; real system prompt (objective,
+        # taxonomy labels, output schema) plus actual review text; instead
         # of trusting a synthetic payload.
         breakdown = None
         if experiment_config is not None:
             # Resolve the exact selected records when a stored file +
             # workload selection are available, so review-text tokens are
-            # counted across every record — not extrapolated.
+            # counted across every record; not extrapolated.
             selected_records = None
             if file_id and workload_selection:
                 try:
@@ -2188,7 +2188,7 @@ async def resume_execution(execution_id: str, request: Request):
         if 'error' in result:
             raise HTTPException(status_code=400, detail=result['error'])
 
-        # Relaunch the batch loop — it resumes from the first unprocessed record
+        # Relaunch the batch loop; it resumes from the first unprocessed record
         asyncio.create_task(classification_executor.execute_classification(execution_id))
 
         return result
@@ -2570,7 +2570,7 @@ async def get_file_preview(file_id: str, request: Request):
 # -----------------------------------------------------------------------------
 # Serve the built frontend (production / single-service deploy).
 # Mounted LAST so every /api/* route registered above takes precedence.
-# In local dev, frontend/dist may not exist — Vite serves the app instead.
+# In local dev, frontend/dist may not exist; Vite serves the app instead.
 # -----------------------------------------------------------------------------
 _REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 _FRONTEND_DIST = os.path.join(_REPO_ROOT, 'frontend', 'dist')

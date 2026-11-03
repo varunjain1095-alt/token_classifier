@@ -129,13 +129,13 @@ const RecommendationsPanel: React.FC<RecommendationsPanelProps> = ({
 
   const getTypeIcon = (type: string) => {
     const icons = {
-      'configuration': '⚙️',
-      'categories': '🏷️',
-      'sampling': '🎯',
-      'cost_optimization': '💰',
-      'accuracy_improvement': '📈'
+      'configuration': '⚙',
+      'categories': '‹›',
+      'sampling': '◉',
+      'cost_optimization': '$',
+      'accuracy_improvement': '↗'
     }
-    return icons[type as keyof typeof icons] || '📋'
+    return icons[type as keyof typeof icons] || '·'
   }
 
   const getHealthScoreColor = (score: number) => {
@@ -158,8 +158,7 @@ const RecommendationsPanel: React.FC<RecommendationsPanelProps> = ({
   if (loading) {
     return (
       <div style={{ textAlign: 'center', padding: '40px' }}>
-        <div style={{ fontSize: '18px', marginBottom: '10px' }}>💡</div>
-        <div>Generating intelligent recommendations...</div>
+        <div>Generating recommendations...</div>
       </div>
     )
   }
@@ -375,8 +374,7 @@ const RecommendationsPanel: React.FC<RecommendationsPanelProps> = ({
           borderRadius: 'var(--radius-sm)',
           border: '1px solid var(--success)'
         }}>
-          <div style={{ fontSize: '18px', marginBottom: '10px' }}>✅</div>
-          <div>No recommendations needed - your configuration looks good!</div>
+          <div>No recommendations needed; your configuration looks good.</div>
         </div>
       )}
     </div>

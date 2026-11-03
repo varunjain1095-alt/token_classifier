@@ -41,7 +41,7 @@ class RecalibrationManager:
             # Analyze token accuracy
             token_analysis = self._analyze_token_accuracy(token_estimates, actual_usage)
 
-            # Analyze classification accuracy — real evaluation only exists
+            # Analyze classification accuracy; real evaluation only exists
             # when the user supplied expectations.
             accuracy_analysis = self._analyze_classification_accuracy(preview_results)
             if expectations:
@@ -117,7 +117,7 @@ class RecalibrationManager:
     def _analyze_token_accuracy(self, estimates: Dict[str, int],
                                actual_usage: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Analyze token estimation accuracy. Requires BOTH an estimated total
-        and actual usage — otherwise there is nothing to compare."""
+        and actual usage, otherwise there is nothing to compare."""
         estimated_total = (estimates or {}).get('total_tokens')
         actual_total = sum(u.get('total_tokens', 0) for u in actual_usage) \
             if actual_usage else 0
@@ -188,7 +188,7 @@ class RecalibrationManager:
                     confidence_levels[confidence.lower()] += 1
         
         return {
-            # Success rate is not classification accuracy — without
+            # Success rate is not classification accuracy; without
             # expectations there is nothing to evaluate against.
             'evaluated': False,
             'overall_accuracy': None,
@@ -259,7 +259,7 @@ class RecalibrationManager:
         """Generate recalibration recommendations."""
         recommendations = []
         
-        # Token estimate recommendations — only when a real estimate-vs-actual
+        # Token estimate recommendations; only when a real estimate-vs-actual
         # comparison exists.
         token_accuracy = token_analysis.get('accuracy_percentage')
         if token_accuracy is not None and token_accuracy < 80:
@@ -293,7 +293,7 @@ class RecalibrationManager:
                 'adjustment': 'improve_prompts'
             })
         
-        # Confidence threshold recommendations — only meaningful when the
+        # Confidence threshold recommendations; only meaningful when the
         # run was actually evaluated against expectations.
         optimal_threshold = confidence_analysis.get('optimal_threshold')
         current_threshold = confidence_analysis.get('current_threshold', 0.7)

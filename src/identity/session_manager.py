@@ -72,7 +72,7 @@ class SessionManager:
     def _persist(self, session_data: SessionData) -> None:
         """Write a session to disk so a backend restart does not log the
         user out or lose their wizard progress. Only used in the in-memory
-        fallback mode — Redis handles durability itself."""
+        fallback mode; Redis handles durability itself."""
         try:
             self.storage_dir.mkdir(parents=True, exist_ok=True)
             (self.storage_dir / f"{session_data.session_id}.json").write_text(

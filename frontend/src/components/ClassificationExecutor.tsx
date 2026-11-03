@@ -74,7 +74,7 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
 
   const startExecution = async () => {
     if (!fileId) {
-      setError('No uploaded dataset — upload a file before running a full execution')
+      setError('No uploaded dataset. Upload a file before running a full execution.')
       return
     }
     setLoading(true)
@@ -211,14 +211,14 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
 
   const getStatusIcon = (status: string) => {
     const icons = {
-      'pending': '⏳',
-      'running': '🔄',
-      'paused': '⏸️',
-      'completed': '✅',
-      'failed': '❌',
-      'cancelled': '🚫'
+      'pending': '○',
+      'running': '●',
+      'paused': '❚❚',
+      'completed': '✓',
+      'failed': '✗',
+      'cancelled': '■'
     }
-    return icons[status as keyof typeof icons] || '📋'
+    return icons[status as keyof typeof icons] || '●'
   }
 
   const progress = execution ? (execution.processed_records / execution.total_records) * 100 : 0
@@ -252,7 +252,7 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
           border: '1px solid var(--border)'
         }}>
           <div style={{ fontSize: '18px', marginBottom: '20px' }}>
-            🚀 Ready to Process {recordCount.toLocaleString()} Records
+            Ready to Process {recordCount.toLocaleString()} Records
           </div>
 
           <div style={{ marginBottom: '20px', fontSize: '14px', color: 'var(--text-2)' }}>
@@ -265,7 +265,7 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
             <div style={{ marginBottom: '20px' }}>
               <input
                 type="password"
-                placeholder="OpenAI API key (optional — server key used if blank)"
+                placeholder="OpenAI API key (optional; server key used if blank)"
                 value={customKey}
                 onChange={(e) => setCustomKey(e.target.value)}
                 style={{
@@ -390,7 +390,7 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
               
               {execution.status === 'completed' && (
                 <div style={{ fontSize: '13px', color: 'var(--text-2)' }}>
-                  Completed — export results on the Export step →
+                  Completed. Export results on the Export step.
                 </div>
               )}
             </div>
@@ -497,7 +497,7 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
               borderRadius: 'var(--radius-sm)',
               border: '1px solid var(--success)'
             }}>
-              <div style={{ fontWeight: 'bold', marginBottom: '10px' }}>✅ Execution Completed Successfully</div>
+              <div style={{ fontWeight: 'bold', marginBottom: '10px', color: 'var(--success)' }}>Execution completed successfully</div>
               <div style={{ fontSize: '14px' }}>
                 <div>• Processed {execution.processed_records.toLocaleString()} records</div>
                 <div>• Success rate: {((execution.successful_records / execution.processed_records) * 100).toFixed(1)}%</div>
@@ -515,7 +515,7 @@ const ClassificationExecutor: React.FC<ClassificationExecutorProps> = ({
               borderRadius: 'var(--radius-sm)',
               border: '1px solid var(--danger)'
             }}>
-              <div style={{ fontWeight: 'bold', marginBottom: '10px' }}>❌ Execution Failed</div>
+              <div style={{ fontWeight: 'bold', marginBottom: '10px', color: 'var(--danger)' }}>Execution failed</div>
               <div style={{ fontSize: '14px' }}>
                 Check the logs for more details about the failure.
               </div>

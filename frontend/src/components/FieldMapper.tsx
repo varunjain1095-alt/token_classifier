@@ -208,16 +208,16 @@ const FieldMapper: React.FC<FieldMapperProps> = ({
 
   const getFieldTypeIcon = (fieldType: string) => {
     const icons: { [key: string]: string } = {
-      'review_text': '📝',
-      'record_id': '🆔',
-      'timestamp': '📅',
-      'rating': '⭐',
-      'language': '🌐',
-      'product': '📦',
-      'source': '🔗',
-      'other': '📋'
+      'review_text': '¶',
+      'record_id': '#',
+      'timestamp': '◷',
+      'rating': '★',
+      'language': '◎',
+      'product': '▣',
+      'source': '⇄',
+      'other': '·'
     }
-    return icons[fieldType] || '📋'
+    return icons[fieldType] || '·'
   }
 
   return (
@@ -261,7 +261,7 @@ const FieldMapper: React.FC<FieldMapperProps> = ({
                 checked={createRowIndex}
                 onChange={(e) => setCreateRowIndex(e.target.checked)}
               />
-              Create Row Index — generate immutable IDs for {nonEmptyRowCount} non-empty records
+              Create Row Index: generate immutable IDs for {nonEmptyRowCount} non-empty records
             </label>
           </div>
         </div>
@@ -284,7 +284,7 @@ const FieldMapper: React.FC<FieldMapperProps> = ({
                 checked={createRowIndex}
                 onChange={(e) => setCreateRowIndex(e.target.checked)}
               />
-              Create Row Index instead — generate immutable IDs for {nonEmptyRowCount} non-empty records
+              Create Row Index instead: generate immutable IDs for {nonEmptyRowCount} non-empty records
             </label>
           </div>
         </div>

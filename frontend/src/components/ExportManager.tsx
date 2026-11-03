@@ -148,12 +148,12 @@ const ExportManager: React.FC<ExportManagerProps> = ({ executionResults, onExpor
 
   const getStatusIcon = (status: string) => {
     const icons = {
-      'processing': '⏳',
-      'generating': '🔄',
-      'completed': '✅',
-      'failed': '❌'
+      'processing': '○',
+      'generating': '●',
+      'completed': '✓',
+      'failed': '✗'
     }
-    return icons[status as keyof typeof icons] || '📋'
+    return icons[status as keyof typeof icons] || '●'
   }
 
   const formatFileSize = (bytes: number) => {

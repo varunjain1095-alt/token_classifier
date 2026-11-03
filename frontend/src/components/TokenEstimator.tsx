@@ -247,7 +247,7 @@ const TokenEstimator: React.FC<TokenEstimatorProps> = ({
       const data = await response.json()
       if (data.success) {
         // Keep tier-unsupported rows so they render as "Not supported";
-        // drop only truly unpriceable/unknown models
+        // drop only unpriceable/unknown models
         const allRows: ComparisonRow[] = data.rows.filter(
           (r: ComparisonRow) => !r.error || r.tier_supported === false)
         setRows(allRows.filter(r => selectedIds.has(r.model_id)))
@@ -370,7 +370,7 @@ const TokenEstimator: React.FC<TokenEstimatorProps> = ({
     if (r.context_threshold_tokens) {
       return `Context tier > ${formatNumber(r.context_threshold_tokens)} tokens/request`
     }
-    // Batch pricing is only shown when it is actually applied — never as a
+    // Batch pricing is only shown when it is actually applied, never as a
     // silent discount on a Standard-tier row.
     if (r.service_tiers?.batch && r.tier_applied?.startsWith('batch')) {
       return `Batch: ${r.service_tiers.batch}`
@@ -558,7 +558,7 @@ const TokenEstimator: React.FC<TokenEstimatorProps> = ({
           fontSize: '13px',
           color: 'var(--info)'
         }}>
-          Approximate estimates — token counts use the tiktoken baseline; non-OpenAI
+          Approximate estimates: token counts use the tiktoken baseline; non-OpenAI
           providers' native tokenization may differ.
         </div>
       )}
@@ -584,7 +584,7 @@ const TokenEstimator: React.FC<TokenEstimatorProps> = ({
         <div style={{ marginBottom: '30px' }}>
           <h4>Token Estimates (tiktoken baseline)</h4>
 
-          {/* Per-request construction — priced against the fully built request */}
+          {/* Per-request construction, priced against the fully built request */}
           {tokenRanges.breakdown && (
             <div className="card" style={{ marginBottom: '15px', padding: '15px' }}>
               <div style={{ fontWeight: 'bold', marginBottom: '10px' }}>Per-request construction</div>
@@ -641,7 +641,7 @@ const TokenEstimator: React.FC<TokenEstimatorProps> = ({
                 </div>
               </div>
               <div style={{ fontSize: '12px', color: 'var(--text-2)', marginTop: '10px' }}>
-                Assumption: 1 review per API request — preview and full execution send one request per record.
+                Assumption: 1 review per API request. Preview and full execution send one request per record.
                 Review-text tokens are counted exactly across every selected stored record;
                 output tokens are estimated from the configured max_tokens.
               </div>
@@ -756,7 +756,7 @@ const TokenEstimator: React.FC<TokenEstimatorProps> = ({
                         <td style={{ ...tdStyle, fontWeight: 'bold' }}>{formatCurrency(r.workload_cost)}</td>
                       </>
                     )}
-                    <td style={tdStyle}>{r.effective_date || r.last_verified_date || '—'}</td>
+                    <td style={tdStyle}>{r.effective_date || r.last_verified_date || '-'}</td>
                     <td style={tdStyle}>
                       <a href={r.source_url} target="_blank" rel="noreferrer">Pricing</a>
                     </td>

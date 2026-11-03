@@ -150,7 +150,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onUploadComplete, onUploadError
           </div>
         ) : (
           <div>
-            <div style={{ fontSize: '48px', marginBottom: '10px' }}>📁</div>
+            <div style={{ fontSize: '48px', marginBottom: '10px' }}>⬆</div>
             <div style={{ fontSize: '18px', marginBottom: '10px' }}>
               {isDragging ? 'Drop file here' : 'Click to select or drag file here'}
             </div>

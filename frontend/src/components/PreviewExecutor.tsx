@@ -308,12 +308,12 @@ const PreviewExecutor: React.FC<PreviewExecutorProps> = ({
           </div>
           {taxonomy.sample_mismatch && (
             <div style={{ marginTop: '8px', color: 'var(--warning)', fontSize: '12px' }}>
-              ⚠ {taxonomy.sample_mismatch.message} ({Math.round((taxonomy.sample_mismatch.overlap_ratio || 0) * 100)}% sample overlap) — consider Regenerate Taxonomy.
+              Warning: {taxonomy.sample_mismatch.message} ({Math.round((taxonomy.sample_mismatch.overlap_ratio || 0) * 100)}% sample overlap). Consider Regenerate Taxonomy.
             </div>
           )}
           {unassignedThemes.length > 0 && (
             <div style={{ marginTop: '6px', color: 'var(--warning)', fontSize: '12px' }}>
-              ⚠ Suggested themes never assigned to any record: {unassignedThemes.join(', ')} — your theme guidance may not match this data.
+              Warning: suggested themes never assigned to any record: {unassignedThemes.join(', ')}. Your theme guidance may not match this data.
             </div>
           )}
         </div>
@@ -327,7 +327,7 @@ const PreviewExecutor: React.FC<PreviewExecutorProps> = ({
           disabled={!canExecutePreview() || loading}
           style={{ padding: '14px 32px', fontSize: '16px' }}
         >
-          {loading ? '🔄 Executing Preview...' : '🚀 Execute Classification Preview'}
+          {loading ? 'Executing Preview...' : 'Execute Classification Preview'}
         </button>
         {isDiscoveryMode() && taxonomy && (
           <button
@@ -351,7 +351,7 @@ const PreviewExecutor: React.FC<PreviewExecutorProps> = ({
         )}
         {!previewModel && (
           <div style={{ fontSize: '12px', color: 'var(--danger)', marginTop: '8px' }}>
-            Preview model (OPENAI_MODEL_NAME) not loaded yet — execution is disabled until it resolves.
+            Preview model (OPENAI_MODEL_NAME) not loaded yet. Execution is disabled until it resolves.
           </div>
         )}
       </div>
@@ -477,7 +477,7 @@ const PreviewExecutor: React.FC<PreviewExecutorProps> = ({
                     </td>
                     <td style={{ textAlign: 'center' }}>
                       {result.match === null ? 'N/A' :
-                        result.match ? '✅' : '❌'}
+                        result.match ? '✓' : '✗'}
                     </td>
                     <td style={{ fontSize: '12px' }}>
                       {result.result?.usage?.total_tokens || 0}
@@ -528,9 +528,9 @@ const PreviewExecutor: React.FC<PreviewExecutorProps> = ({
                   <div key={rid} style={{ padding: '4px 0', borderBottom: '1px solid var(--surface-2)' }}>
                     <strong>{rid}</strong>
                     {d.flags?.length ? (
-                      <span style={{ color: 'var(--warning)' }}> — {d.flags.map((f: string) => f.replace(/_/g, ' ')).join(', ')}</span>
+                      <span style={{ color: 'var(--warning)' }}>: {d.flags.map((f: string) => f.replace(/_/g, ' ')).join(', ')}</span>
                     ) : (
-                      <span style={{ color: 'var(--success)' }}> — ok</span>
+                      <span style={{ color: 'var(--success)' }}>: ok</span>
                     )}
                     {verdict && (
                       <span title={verdict.reason} style={{ color: verdictColor }}>

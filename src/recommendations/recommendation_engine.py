@@ -39,9 +39,9 @@ class RecommendationEngine:
                                current_config: Dict[str, Any],
                                cost_estimate: Dict[str, Any],
                                preview_results: Dict[str, Any] = None) -> Dict[str, Any]:
-        """Generate comprehensive recommendations."""
+        """Generate recommendations."""
         try:
-            # analysisResults arrives wrapped as {analysis, recalibration} —
+            # analysisResults arrives wrapped as {analysis, recalibration};
             # use the inner analysis object.
             if isinstance(analysis_results, dict) and 'analysis' in analysis_results:
                 analysis_results = analysis_results.get('analysis') or {}
@@ -154,7 +154,7 @@ class RecommendationEngine:
                 'impact': 'Improved accuracy and consistency'
             })
         
-        # Max tokens recommendations — only when the config actually sets a
+        # Max tokens recommendations; only when the config actually sets a
         # limit (defaults would fire spuriously against real usage).
         max_tokens = config.get('max_tokens')
         avg_tokens = analysis_results.get('performance_metrics', {}).get('average_tokens_per_request', 0)
@@ -200,7 +200,7 @@ class RecommendationEngine:
         discovery_ran = 'discovered_categories' in discovery_results
         category_dist = analysis_results.get('category_distribution', {})
 
-        # Category count recommendations — only when discovery actually ran
+        # Category count recommendations; only when discovery actually ran
         if discovery_ran and len(discovered_categories) < 2:
             recommendations.append({
                 'type': RecommendationType.CATEGORIES.value,
@@ -277,7 +277,7 @@ class RecommendationEngine:
         workload = cost_estimate.get('workload_cost') or cost_estimate.get('workloadCost') or {}
         total_cost = workload.get('total_cost', 0)
 
-        # Sample size recommendations — only when an analysis ran
+        # Sample size recommendations; only when an analysis ran
         if total_results is not None and total_results < 5:
             recommendations.append({
                 'type': RecommendationType.SAMPLING.value,
@@ -329,7 +329,7 @@ class RecommendationEngine:
         token_stats = analysis_results.get('performance_metrics', {}).get('token_statistics', {})
         token_efficiency = token_stats.get('token_efficiency')
 
-        # Token efficiency recommendations — only when we actually have stats
+        # Token efficiency recommendations; only when we actually have stats
         if token_efficiency is not None and token_efficiency < 0.3:
             recommendations.append({
                 'type': RecommendationType.COST_OPTIMIZATION.value,
@@ -397,7 +397,7 @@ class RecommendationEngine:
                 'impact': 'Significantly improved reliability'
             })
         
-        # Confidence score recommendations — confidence may be self-reported
+        # Confidence score recommendations; confidence may be self-reported
         # strings (high/medium/low); derive a proxy mean when no numeric
         # scores exist, and never treat missing data as "low".
         numeric_scores = confidence_dist.get('numeric_scores', {})
@@ -443,7 +443,7 @@ class RecommendationEngine:
         return recommendations
 
     def _generate_reliability_recommendations(self, preview_results: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Recommendations grounded in the run's reliability audit —
+        """Recommendations grounded in the run's reliability audit.
         consistency verdicts, diagnostics flags, and stability."""
         recommendations = []
         if not preview_results:
@@ -596,10 +596,10 @@ class RecommendationEngine:
         error_rate = analysis_results.get('error_patterns', {}).get('error_rate', 0)
 
         if accuracy is not None:
-            # Evaluated run — health tracks measured accuracy.
+            # Evaluated run; health tracks measured accuracy.
             health_score = max(0, accuracy - error_rate)
         else:
-            # No expectations — health reflects the reliability audit:
+            # No expectations; health reflects the reliability audit:
             # unsupported/questionable verdicts and flagged records.
             consistency = (preview_results or {}).get('consistency') or []
             diagnostics = (preview_results or {}).get('diagnostics') or {}

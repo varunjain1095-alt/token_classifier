@@ -192,7 +192,7 @@ class WorkloadSelector:
             return {
                 'display_text': f"Error: {selection_result.get('error', 'Unknown error')}",
                 'color': 'red',
-                'icon': '❌'
+                'icon': '✗'
             }
         
         mode = selection_result['selection_mode']
@@ -211,7 +211,7 @@ class WorkloadSelector:
         return {
             'display_text': mode_displays.get(mode, f"Selected: {count}/{total}"),
             'color': 'green',
-            'icon': '✅',
+            'icon': '✓',
             'count': count,
             'total': total,
             'mode': mode

@@ -317,7 +317,7 @@ function App() {
                   <ImportDiagnostics diagnostics={uploadedFile.diagnostics} />
                 </div>
               )}
-              {/* Restored session files render nothing here — downstream
+              {/* Restored session files render nothing here; downstream
                   state stays intact, but Upload only shows content for a
                   file uploaded in this session. */}
             </div>
@@ -363,7 +363,7 @@ function App() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '10px' }}>
                   {[
                     { value: 'defined', label: 'I already have categories', description: 'Select or create category sets with definitions, examples and classification rules.' },
-                    { value: 'undefined', label: "I don't know my categories yet", description: 'State your objective — the preview model will propose draft categories for review.' }
+                    { value: 'undefined', label: "I don't know my categories yet", description: 'State your objective: the preview model will propose draft categories for review.' }
                   ].map(mode => (
                     <button
                       key={mode.value}
@@ -535,7 +535,7 @@ function App() {
               borderRadius: 'var(--radius)',
               border: '1px solid var(--success)'
             }}>
-              <h3>🎯 Ready for Classification</h3>
+              <h3>Ready for Classification</h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px' }}>
                 <div>
                   <strong>File:</strong> {uploadedFile.filename}

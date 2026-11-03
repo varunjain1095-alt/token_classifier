@@ -10,12 +10,12 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
     
-    # OpenAI Configuration — optional at boot so the container starts;
+    # OpenAI Configuration; optional at boot so the container starts;
     # preview/classification surfaces its own error when no key is set.
     openai_api_key: str = Field("", env="OPENAI_API_KEY")
     openai_model_name: str = Field("gpt-5-mini", env="OPENAI_MODEL_NAME")
 
-    # Database Configuration — optional; the app falls back to in-memory/
+    # Database Configuration; optional; the app falls back to in-memory/
     # filesystem storage when no database is configured.
     database_url: str = Field("", env="DATABASE_URL")
     postgres_host: str = Field("localhost", env="POSTGRES_HOST")

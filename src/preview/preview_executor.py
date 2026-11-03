@@ -347,7 +347,7 @@ class PreviewExecutor:
         config_id = experiment_config.get('id')
         existing = config.get('draft_taxonomy')
 
-        # The request may carry a stale config object — recover the taxonomy
+        # The request may carry a stale config object; recover the taxonomy
         # from the stored configuration by id.
         if not existing and config_id:
             stored = experiment_manager.get_experiment_config(config_id)
@@ -398,7 +398,7 @@ class PreviewExecutor:
 
     def _unassigned_guidance_themes(self, taxonomy: Dict[str, Any],
                                     results: List[Dict[str, Any]]) -> List[str]:
-        """Flag user-suggested themes that no record was assigned to — a sign
+        """Flag user-suggested themes that no record was assigned to, a sign
         the guidance does not match the data (read-only diagnostic)."""
         themes = taxonomy.get('themes') or []
         guidance_labels = [t.get('label') for t in themes
@@ -688,7 +688,7 @@ class PreviewExecutor:
             limits = self.quota_limits.get(user_type, self.quota_limits['anonymous'])
 
             # Only billable previews (>= 1 successful classification) count
-            # against the quota — fully failed runs are free.
+            # against the quota; fully failed runs are free.
             user_previews = [
                 p for p in self.get_user_previews(user_id)
                 if p.get('billable', True)

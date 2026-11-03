@@ -122,7 +122,7 @@ const ExpectationsManager: React.FC<ExpectationsManagerProps> = ({
       const validExpectations = expectations.filter(exp => exp.expected_value.trim())
 
       if (validExpectations.length === 0) {
-        // Expectations are optional — continue without them
+        // Expectations are optional; continue without them
         handleSkip()
         return
       }
@@ -196,7 +196,7 @@ const ExpectationsManager: React.FC<ExpectationsManagerProps> = ({
         marginBottom: '20px',
         fontSize: '13px'
       }}>
-        Expectations are optional — you can continue without them. Any you provide are saved for expected-vs-actual comparison.
+        Expectations are optional. You can continue without them; any you provide are saved for expected-vs-actual comparison.
       </div>
       
       {/* Progress Indicator */}

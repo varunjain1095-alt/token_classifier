@@ -92,7 +92,7 @@ const UndefinedClassificationConfig: React.FC<UndefinedClassificationConfigProps
       }}>
         No category set is required. The preview model will analyse the selected
         sample and propose draft categories later. Proposed categories remain
-        drafts — you will be able to edit, merge, split, delete or approve them
+        drafts. You will be able to edit, merge, split, delete or approve them
         before they become a versioned category set.
       </div>
 
@@ -104,7 +104,7 @@ const UndefinedClassificationConfig: React.FC<UndefinedClassificationConfigProps
         <textarea
           value={objective}
           onChange={(e) => setObjective(e.target.value)}
-          placeholder="e.g., Users report Google Photos search is unreliable. I want to find which friction points recur most — failing searches, sync issues, or missing features."
+          placeholder="e.g., Users report Google Photos search is unreliable. I want to find which friction points recur most: failing searches, sync issues, or missing features."
           style={{
             width: '100%',
             padding: '8px',
@@ -134,7 +134,7 @@ const UndefinedClassificationConfig: React.FC<UndefinedClassificationConfigProps
               })
             }}
           />
-          Single-label — each review gets at most one category
+          Single-label: each review gets at most one category
         </label>
         <label style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <input
@@ -143,7 +143,7 @@ const UndefinedClassificationConfig: React.FC<UndefinedClassificationConfigProps
             checked={labelMode === 'multi_label'}
             onChange={() => setLabelMode('multi_label')}
           />
-          Multi-label — a review may belong to several categories
+          Multi-label: a review may belong to several categories
         </label>
       </div>
 

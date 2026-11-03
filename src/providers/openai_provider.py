@@ -195,7 +195,7 @@ class OpenAIProvider:
         restricted_temperature = model.startswith(('gpt-5', 'o1', 'o3', 'o4'))
         if restricted_temperature:
             normalized.pop('temperature', None)
-            # Reasoning models spend completion tokens on hidden reasoning —
+            # Reasoning models spend completion tokens on hidden reasoning;
             # cap the effort and guarantee enough budget for actual output.
             normalized.setdefault('reasoning_effort', 'minimal')
             existing = normalized.get('max_completion_tokens', 0)

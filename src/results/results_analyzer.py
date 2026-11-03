@@ -90,7 +90,7 @@ class ResultsAnalyzer:
                          expectations: List[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Analyze classification accuracy."""
         if not expectations:
-            # No expectations were provided — accuracy cannot be evaluated.
+            # No expectations were provided; accuracy cannot be evaluated.
             # Report execution success separately instead of a fake 0%/100%.
             successful = len([r for r in results if r.get('success')])
             total = len(results)
@@ -252,7 +252,7 @@ class ResultsAnalyzer:
                         if isinstance(confidence, (int, float)):
                             category_confidence[str(category)].append(confidence)
                     else:
-                        # Successful result without a usable category —
+                        # Successful result without a usable category;
                         # must remain visible so counts reconcile.
                         categories['Unaccounted'] += 1
         
@@ -389,7 +389,7 @@ class ResultsAnalyzer:
         if level_counts:
             parts = ', '.join(f"{lvl}: {cnt}" for lvl, cnt in level_counts.items())
             insights.append(
-                f"Self-reported confidence levels — {parts}. "
+                f"Self-reported confidence levels: {parts}. "
                 "Model confidence is not evidence of correctness; "
                 "see the reliability audit verdicts.")
         

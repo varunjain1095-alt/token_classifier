@@ -39,10 +39,10 @@ const ImportDiagnostics: React.FC<DiagnosticsProps> = ({ diagnostics }) => {
 
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
-      case 'error': return '❌'
-      case 'warning': return '⚠️'
-      case 'info': return 'ℹ️'
-      default: return '📋'
+      case 'error': return '✗'
+      case 'warning': return '!'
+      case 'info': return 'i'
+      default: return '·'
     }
   }
 
@@ -98,7 +98,7 @@ const ImportDiagnostics: React.FC<DiagnosticsProps> = ({ diagnostics }) => {
                   color: 'var(--text-2)',
                   fontStyle: 'italic'
                 }}>
-                  💡 {issue.suggestion}
+                  Suggestion: {issue.suggestion}
                 </div>
               )}
             </div>
@@ -135,7 +135,7 @@ const ImportDiagnostics: React.FC<DiagnosticsProps> = ({ diagnostics }) => {
                   color: 'var(--text-2)',
                   fontStyle: 'italic'
                 }}>
-                  💡 {warning.suggestion}
+                  Suggestion: {warning.suggestion}
                 </div>
               )}
             </div>
@@ -170,7 +170,7 @@ const ImportDiagnostics: React.FC<DiagnosticsProps> = ({ diagnostics }) => {
           textAlign: 'center',
           color: 'var(--success)'
         }}>
-          <div style={{ fontSize: '24px', marginBottom: '10px' }}>✅</div>
+          <div style={{ fontSize: '24px', marginBottom: '10px' }}>✓</div>
           <div style={{ fontWeight: 'bold' }}>No issues detected</div>
           <div style={{ fontSize: '14px', marginTop: '5px' }}>
             File appears to be ready for processing

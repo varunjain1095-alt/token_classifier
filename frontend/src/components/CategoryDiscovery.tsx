@@ -36,7 +36,7 @@ const CategoryDiscovery: React.FC<CategoryDiscoveryProps> = ({
   ]
 
   useEffect(() => {
-    // Auto-start discovery once per mount — re-renders or state restores
+    // Auto-start discovery once per mount; re-renders or state restores
     // must not retrigger the request.
     if (!startedRef.current && sampleRecords && sampleRecords.length > 0) {
       startedRef.current = true
@@ -79,7 +79,7 @@ const CategoryDiscovery: React.FC<CategoryDiscoveryProps> = ({
       }
     } catch (error: any) {
       setError(error?.name === 'AbortError'
-        ? 'Category discovery timed out after 2 minutes — please retry.'
+        ? 'Category discovery timed out after 2 minutes. Please retry.'
         : 'Category discovery failed: ' + error)
       setDiscoveryStatus('failed')
     } finally {
@@ -171,7 +171,7 @@ const CategoryDiscovery: React.FC<CategoryDiscoveryProps> = ({
   if (loading || discoveryStatus === 'analyzing') {
     return (
       <div style={{ textAlign: 'center', padding: '40px' }}>
-        <div style={{ fontSize: '18px', marginBottom: '10px' }}>🔍</div>
+        <div style={{ fontSize: '18px', marginBottom: '10px' }}>●</div>
         <div>Discovering categories in your data...</div>
         <div style={{ fontSize: '12px', color: 'var(--text-2)', marginTop: '10px' }}>
           Analyzing {sampleRecords?.length || 0} records using {discoveryMethod.replace('_', ' ')}
@@ -474,7 +474,7 @@ const CategoryDiscovery: React.FC<CategoryDiscoveryProps> = ({
             disabled={!sampleRecords || sampleRecords.length === 0}
             style={{ padding: '14px 32px', fontSize: '16px' }}
           >
-            🔍 Start Category Discovery
+            Start Category Discovery
           </button>
         </div>
       )}

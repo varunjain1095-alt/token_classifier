@@ -153,7 +153,6 @@ const ResultsAnalyzer: React.FC<ResultsAnalyzerProps> = ({
   if (loading) {
     return (
       <div style={{ textAlign: 'center', padding: '40px' }}>
-        <div style={{ fontSize: '18px', marginBottom: '10px' }}>📊</div>
         <div>Analyzing results and recalibrating...</div>
       </div>
     )
@@ -346,7 +345,7 @@ const ResultsAnalyzer: React.FC<ResultsAnalyzerProps> = ({
         </div>
       )}
 
-      {/* Reliability Audit — verdicts + flags from the preview run */}
+      {/* Reliability Audit: verdicts + flags from the preview run */}
       {(() => {
         const batch = previewResults?.results || {}
         const consistency: any[] = batch.consistency || []
@@ -365,9 +364,9 @@ const ResultsAnalyzer: React.FC<ResultsAnalyzerProps> = ({
             <div style={{ padding: '15px', backgroundColor: 'var(--warning-soft)', border: '1px solid var(--warning)', borderRadius: 'var(--radius-sm)' }}>
               <div style={{ fontSize: '12px', color: 'var(--text-2)', marginBottom: '10px', lineHeight: '1.5' }}>
                 Two different checks run on every result, so their counts can differ:
-                <br />• <strong>Audit verdicts</strong> (supported / questionable / unsupported) — a second model pass judging whether the <em>category fits the review</em>.
-                <br />• <strong>Flagged records</strong> — automatic rule checks, e.g. whether the quoted evidence appears <em>verbatim</em> in the review text.
-                <br />A record can be flagged (its evidence quote was paraphrased) while its category is still judged supported — flags catch mechanical issues, verdicts judge whether the label itself makes sense.
+                <br />• <strong>Audit verdicts</strong> (supported / questionable / unsupported): a second model pass judging whether the <em>category fits the review</em>.
+                <br />• <strong>Flagged records</strong>: automatic rule checks, e.g. whether the quoted evidence appears <em>verbatim</em> in the review text.
+                <br />A record can be flagged (its evidence quote was paraphrased) while its category is still judged supported. Flags catch mechanical issues; verdicts judge whether the label itself makes sense.
               </div>
               <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', marginBottom: '10px' }}>
                 {(['supported', 'questionable', 'unsupported'] as const).map(v => (
@@ -388,7 +387,7 @@ const ResultsAnalyzer: React.FC<ResultsAnalyzerProps> = ({
                     const verdict = consistency.find(c => c.record_id === rid)?.verdict
                     return (
                       <div key={rid} style={{ padding: '3px 0', color: 'var(--warning)' }}>
-                        <strong>{rid}</strong> — flagged: {d.flags.map((f: string) => f.replace(/_/g, ' ')).join(', ')}
+                        <strong>{rid}</strong>: {d.flags.map((f: string) => f.replace(/_/g, ' ')).join(', ')}
                         {verdict && <span className={`chip chip-${verdict === 'supported' ? 'success' : verdict === 'questionable' ? 'warning' : 'danger'}`} style={{ marginLeft: '6px' }}>{verdict}</span>}
                       </div>
                     )
@@ -460,7 +459,7 @@ const ResultsAnalyzer: React.FC<ResultsAnalyzerProps> = ({
             borderRadius: 'var(--radius-sm)',
             border: `1px solid ${recalibration.applied ? 'var(--success)' : 'var(--border)'}`
           }}>
-            {/* Token-estimate recalibration — separate from classification */}
+            {/* Token-estimate recalibration, separate from classification */}
             <div style={{ marginBottom: '12px' }}>
               <strong>Token-Estimate Recalibration:</strong>
               <span style={{ marginLeft: '10px', fontWeight: 'bold', color:
@@ -492,7 +491,7 @@ const ResultsAnalyzer: React.FC<ResultsAnalyzerProps> = ({
               </div>
             </div>
 
-            {/* Classification recalibration — requires expectations */}
+            {/* Classification recalibration, requires expectations */}
             <div style={{ marginBottom: '12px', paddingTop: '12px', borderTop: '1px solid var(--border)' }}>
               <strong>Classification Recalibration:</strong>
               <span style={{ marginLeft: '10px', fontWeight: 'bold', color:
